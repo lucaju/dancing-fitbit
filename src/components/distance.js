@@ -8,9 +8,9 @@ export default function distance(vis) {
 
 	this.svgContainer;
 
-	const parseTime = this.vis.parseTime;
-
+	const parseTime = d3.timeParse('%H:%M:%S');
 	const fullCircle = 2 * Math.PI;
+	
 	const innerRadius = 300;
 	const outerRadius = 450;
 

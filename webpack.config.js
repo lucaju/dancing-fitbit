@@ -61,14 +61,14 @@ module.exports = {
 					content: 'yes',
 				},
 			],
-			title: 'Fitbit Vis',
+			title: 'Dancing with Fitbit',
 		}),
-		new webpack.ProvidePlugin({
-			$: 'jquery',
-			jQuery: 'jquery',
-			'window.jQuery': 'jquery',
-			'window.$': 'jquery',
-		}),
+		// new webpack.ProvidePlugin({
+		// 	$: 'jquery',
+		// 	jQuery: 'jquery',
+		// 	'window.jQuery': 'jquery',
+		// 	'window.$': 'jquery',
+		// }),
 		new CopyWebpackPlugin([
 			{ from: 'src/dataset/', to: 'dataset/' },
 			{ from: 'src/images/', to: 'images/' },

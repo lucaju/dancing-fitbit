@@ -1,6 +1,51 @@
+
+@import url('https://fonts.googleapis.com/css?family=Reenie+Beanie');
+
+
 text {
   font-size: 14px;
   font-family: monospace;
+}
+
+body {
+  color: #dddddd;
+}
+
+
+.title {
+  font-family: 'Reenie Beanie', cursive;
+  color: #cccccc;
+  font-size: 6em;
+}
+
+.subtitle {
+  font-family: 'Reenie Beanie', cursive;
+  color: #cccccc;
+  font-size: 3em;
+}
+
+.team-name {
+  font-family: 'Reenie Beanie', cursive;
+  color: #cccccc;
+  font-size: 2em;
+}
+
+.lang-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: transparent;
+  border-width: 1px;
+  border-color: #cccccc;
+}
+
+.play-button {
+  background-color: transparent;
+  border-width: 1px;
+  border-color: #cccccc;
+}
+
+.headphones {
+  color: #aaaaaa;
 }
 
 .tm-sidebar-left {

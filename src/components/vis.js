@@ -24,18 +24,21 @@ import Distance from './distance';
 export default function Vis(app) {
 
 	this.app = app;
-	this.vis;
 
-	this.parseTime = d3.timeParse('%H:%M:%S');
-	this.formatHour = d3.timeFormat('%H');
-	this.fullCircle = 2 * Math.PI;
+	this.svg;
+
+	this.distance = new Distance(this);
+	this.footSteps = new FootSteps(this);
+	this.calories = new Calories(this);
+	this.heart = new ModuleHeart(this);
 
 	this.initialDay = 10; //min 10: 
 	this.lastDay = 16; // max 20 //16
 	this.day = this.initialDay;
 
 	this.gooeyOn = false;
-
+	this.animationParameters = [];
+	
 	const margin = {
 		top: 10,
 		right: 10,
@@ -46,16 +49,9 @@ export default function Vis(app) {
 	const width = window.innerWidth - margin.left - margin.right - 105 - 40;
 	const height = window.innerHeight - margin.top - margin.bottom - 20;
 
-	this.svg;
 	let svgDefs;
 
-	this.distance = new Distance(this);
-	this.footSteps = new FootSteps(this);
-	this.calories = new Calories(this);
-	this.heart = new ModuleHeart(this);
 	
-
-	this.animationParameters = [];
 
 	this.init = function init() {
 
@@ -73,7 +69,6 @@ export default function Vis(app) {
 
 		this.setDay(this.day);
 
-		// this.initiateVideo();
 		this.addVideo();
 
 	};

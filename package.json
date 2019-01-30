@@ -18,7 +18,7 @@
     "server": "node index.js"
   },
   "dependencies": {
-    "chroma-js": "^1.4.1",
+    "chroma-js": "^2.0.2",
     "d3": "^5.8.0",
     "event-emitter": "^0.3.5",
     "moment": "^2.24.0",
