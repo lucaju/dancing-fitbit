@@ -1,14 +1,9 @@
 
 @import url('https://fonts.googleapis.com/css?family=Reenie+Beanie');
 
-
-text {
-  font-size: 14px;
-  font-family: monospace;
-}
-
 body {
   color: #dddddd;
+  background-color: black;
 }
 
 
@@ -48,7 +43,10 @@ body {
   color: #aaaaaa;
 }
 
-.tm-sidebar-left {
+
+/********/
+
+.sidebar-left {
   position: fixed;
   top: 0px;
   bottom: 0;
@@ -57,7 +55,7 @@ body {
 
   /* border-right: 1px #e5e5e5 solid; */
   overflow: auto;
-  background-color: white;
+  /* background-color: black; */
   z-index: 100;
 }
 
@@ -65,23 +63,22 @@ body {
   padding: 60px 40px 60px 40px;
 }
 
-#top-menu {
-  z-index: 980;
+/*********/
+
+text {
+  font-size: 14px;
+  font-family: monospace;
 }
 
 .tm-main {
   padding-left: 105px;
 }
 
-body {
-  background-color: black;
-}
-
 #visualization {
   position: absolute;
 }
 
-
+/*********/
 
 * { box-sizing: border-box; }
 .video-background {
@@ -99,9 +96,4 @@ body {
   height: 100%;
   pointer-events: none;
 
-/*  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);*/
 }

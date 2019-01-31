@@ -14,16 +14,15 @@ import visMustache from './vis.html';
 import * as d3 from 'd3';
 // import { throws } from 'assert';
 
-import YTPlayer from 'yt-player';
-
 import ModuleHeart from './heartRate';
 import Calories from './calories';
 import FootSteps from './footsteps';
 import Distance from './distance';
 
-export default function Vis(app) {
+export default function Vis(dancing) {
 
-	this.app = app;
+	this.dancing = dancing;
+	this.app = dancing.app;
 
 	this.svg;
 
@@ -51,8 +50,6 @@ export default function Vis(app) {
 
 	let svgDefs;
 
-	
-
 	this.init = function init() {
 
 		// data
@@ -68,8 +65,6 @@ export default function Vis(app) {
 		this.setup();
 
 		this.setDay(this.day);
-
-		this.addVideo();
 
 	};
 
@@ -90,7 +85,7 @@ export default function Vis(app) {
 	this.calculateSleepMetrics = function calculateSleepMetrics() {
 
 		//data
-		let data = this.app.getMetricByDay(this.day).sleep;
+		let data = this.dancing.getMetricByDay(this.day).sleep;
 		let mainSleep;
 
 		let parameter = {};
@@ -218,8 +213,6 @@ export default function Vis(app) {
 		}
 	};
 
-
-
 	this.fadeOut = function fadeOut(source) {
 		const s = d3.select(source);
 		const d = this.getAnimationParametersByDay(s.attr('day')).angleDuration / 3;
@@ -258,54 +251,6 @@ export default function Vis(app) {
 
 		}
 
-	};
-
-	this.addVideo = function () {
-		const player = new YTPlayer('#player',{
-			controls: false,
-			keyboard: false,
-			related: false,
-			info: false,
-			modestBranding: true,
-			annotations: false
-		});
-
-		// player.load('5m7n1SizP3E');
-		player.load('E-4gJG3d6Ls');
-		player.seek(180);
-		player.setVolume(10);
-		// player.autoplay(true);
-		player.play();
-		player.seek('180');
-
-
-		player.on('playing', () => {
-			console.log(player.getDuration()); // => 351.521
-		});
-
-		// const player = new YTPlayer('#player', {
-		// 	// height: '390',
-		// 	// width: '640',
-		// 	videoId: 'FeSCXQ5DaTM',
-		// 	playerVars: {
-		// 		autoplay: 0, //Auto play
-		// 		//cc_load_policy: 0,        //Close Captiuon
-		// 		// disablekb: 1,            //Keyboard Control
-		// 		enablejsapi: 1, //API Control
-		// 		fs: 0, //Full Screen
-		// 		iv_load_policy: 3, //Annotation
-		// 		loop: 1, //loop
-		// 		rel: 0, //List of related videos in the end
-		// 		modestbranding: 1, //detail
-		// 		showinfo: 0, //Video info
-		// 		start: 0 //Starting point in (s). We acna also define where it should end (using the 'end' parameter)
-
-		// 	},
-		// 	events: {
-		// 		// 'onReady': onPlayerReady,
-		// 		// 'onStateChange': onPlayerStateChange
-		// 	}
-		// });
 	};
 
 }

@@ -43,7 +43,7 @@ export default function Home(_app) {
 			d3.select('#intro').html(html);
 
 			d3.select('#lang-button').on('click', function() {
-				let lang = select(this).html();
+				let lang = d3.select(this).html();
 				update(lang);
 			});
 

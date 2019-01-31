@@ -1,32 +1,47 @@
 import sidebarMustache from './sidebar.html';
-import {
-	select
-} from 'd3-selection/dist/d3-selection.min';
-import createPlayer from 'web-audio-player';
+import {select, selectAll} from 'd3-selection/dist/d3-selection.min';
 
-export default function Sidebar(app) {
-	this.app = app;
+
+export default function Sidebar(dancing) {
+	this.dancing = dancing;
 
 	this.init = function init() {
 
+		const _this = this;
+
 		// data
 		const pageData = {
-			title: 'Metrics',
-			metrics: [{
-				name: 'heart',
-			},
-			{
-				name: 'calories',
-			},
-			{
-				name: 'steps',
-			},
-			{
-				name: 'distance',
-			}
+			audivisuals: [
+				{
+					name:'video',
+					state: 'on'
+				},
+				{
+					name: 'audio',
+					state: 'on'
+				}
+			],
+			metrics: [
+				{
+					name: 'heart',
+					state: 'on'
+				},
+				{
+					name: 'calories',
+					state: 'on'
+				},
+				{
+					name: 'footsteps',
+					state: 'on'
+				},
+				{
+					name: 'distance',
+					state: 'on'
+				}
 			],
 			effects: [{
 				name: 'gooey',
+				state: 'off'
 			}]
 		};
 
@@ -35,17 +50,40 @@ export default function Sidebar(app) {
 		select('#app').append('div').attr('id', 'tm-sidebar-left');
 		select('#tm-sidebar-left').html(html);
 
-		let audio = createPlayer('asset/Florence_SC_livemixdown.mp3');
+		selectAll('.option')
+			.style('opacity', function() {
+				if (select(this).attr('state') == 'off') return 0.5;
+			})
+			.on('click', function() {
 
-		audio.on('load', () => {
-			console.log('Audio loaded...');
+				const option = select(this);
+				const name = option.attr('id').substring(7);
+				console.log(name);
 
-			// start playing audio file
-			audio.play();
+				let state = option.attr('state');
 
-			// and connect your node somewhere, such as
-			// the AudioContext output so the user can hear it!
-			audio.node.connect(audio.context.destination);
-		});
+				if (state == 'off') {
+					state = 'on';
+					option.style('opacity',1);
+				} else {
+					state = 'off';
+					option.style('opacity',.5);
+				}
+
+				option.attr('state',state);
+
+				if (name == 'audio') {
+					_this.dancing.audioControl(state);
+				} else if (name == 'video') {
+					_this.dancing.videoControl(state);
+				} else if (name == 'heart' || name == 'calories' || name == 'footsteps' || name == 'distance') {
+					_this.dancing.hideMetric(name);
+				} else if (name == 'gooey') {
+					_this.dancing.applyFX(name);
+				}
+			});
+
+
+
 	};
 }

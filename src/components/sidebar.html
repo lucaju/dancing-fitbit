@@ -1,35 +1,33 @@
-<div class="tm-sidebar-left">
+<div class="sidebar-left">
 	<div id="main-menu">
-		<div class="uk-margin-medium-top uk-margin-medium-bottom">
+		<div class="uk-margin-medium-top uk-margin-large-bottom">
+				<ul class="uk-list">
+					{{#audivisuals}}
+					<li id='button-{{name}}' state={{state}} class="option uk-margin">
+						<a><img data-src="images/{{name}}.png" alt="{{name}}" uk-img></a>
+					</li>
+					{{/audivisuals}}
+				</ul>
+			</div>
+
+		<div class="uk-margin-medium-top uk-margin-large-bottom">
 			<ul class="uk-list">
 				{{#metrics}}
-				<li id='button-{{name}}' class="uk-margin" onclick="app.hideMetric('{{name}}')">
+				<li id='button-{{name}}' state={{state}} class="option uk-margin">
 					<a><img data-src="images/{{name}}.png" alt="{{name}}" uk-img></a>
 				</li>
 				{{/metrics}}
 			</ul>
-			<!-- <audio
-				controls
-				src="asset/Florence_SC_livemixdown.mp3">
-					Your browser does not support the
-					<code>audio</code> element.
-			</audio> -->
 		</div>
-		<hr>
+
 		<div class="uk-margin-medium-top uk-margin-medium-bottom">
 			<ul class="uk-list">
 				{{#effects}}
-				<li id='button-{{name}}' class="uk-margin" onclick="app.applyFX('{{name}}')" style="opacity:.5;">
+				<li id='button-{{name}}' state={{state}} class="option uk-margin">
 					<a><img data-src="images/{{name}}.png" alt="{{name}}" uk-img></a>
 				</li>
 				{{/effects}}
 			</ul>
 		</div>
 	</div>
-	
-	<!-- <div id="footer-section" class="uk-section uk-section-xsmall uk-section-secondary">
-		<div class="uk-container uk-container-small uk-text-small uk-text-center">
-			<p>Developed by<br/><a href="https://luciano.fluxo.art.br" target="_blank">Luciano Frizzera</a></p>
-		</div>
-	</div> -->
 </div>

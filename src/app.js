@@ -12,8 +12,7 @@ import './style.css';
 import DataModel from './dataModel';
 import Home from './components/home';
 import Dancing from './components/dancing';
-import Sidebar from './components/sidebar';
-import Vis from './components/vis';
+
 
 
 // APP
@@ -34,27 +33,11 @@ function App() {
 		this.home = new Home(this);
 		this.home.init();
 
-		// this.sidebar = new Sidebar(this);
-		// this.sidebar.init();
-
-		// this.vis = new Vis(this);
-		// this.vis.init();
-
 	};
 	
 	this.getMetricByDay = function getMetricByDay(day) {
 		const metric = this.dataModel.metrics.find(m => m.day == day);
 		return metric;
-	};
-
-	this.hideMetric = function hideVis(visName) {
-		this.vis.hideMetric(visName);
-	};
-
-	this.applyFX = function applyFX(fx) {
-		if (fx == 'gooey') {
-			this.vis.applyGooeyFX();
-		}
 	};
 
 	this.changeView = function changeView() {
