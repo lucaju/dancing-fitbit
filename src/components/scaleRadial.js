@@ -1,0 +1,70 @@
+import * as d3 from 'd3';
+
+const square = function square(x) {
+	return x * x;
+};
+
+export function scaleRadial() {
+
+	let linear = d3.scaleLinear();
+
+	var sq = square;
+
+	function scale(x) {
+		return Math.sqrt(linear(x));
+	}
+
+	scale.domain = function (_) {
+		return arguments.length ? (linear.domain(_), scale) : linear.domain();
+	};
+
+	scale.nice = function (count) {
+		return (linear.nice(count), scale);
+	};
+
+	scale.range = function (_) {
+		return arguments.length ? (linear.range(_.map(sq)), scale) : linear.range().map(Math.sqrt);
+	};
+
+	scale.ticks = linear.ticks;
+	scale.tickFormat = linear.tickFormat;
+
+	return scale;
+}
+
+
+
+// export default function scaleRadial() {
+
+// 	this.square = function square(x) {
+// 		return x * x;
+// 	};
+
+// 	this.scaleRadial = function scaleRadial() {
+
+// 		let linear = d3.scaleLinear();
+
+// 		var sq = this.square;
+
+// 		function scale(x) {
+// 			return Math.sqrt(linear(x));
+// 		}
+
+// 		scale.domain = function (_) {
+// 			return arguments.length ? (linear.domain(_), scale) : linear.domain();
+// 		};
+
+// 		scale.nice = function (count) {
+// 			return (linear.nice(count), scale);
+// 		};
+
+// 		scale.range = function (_) {
+// 			return arguments.length ? (linear.range(_.map(sq)), scale) : linear.range().map(Math.sqrt);
+// 		};
+
+// 		scale.ticks = linear.ticks;
+// 		scale.tickFormat = linear.tickFormat;
+
+// 		return scale;
+// 	};
+// }

@@ -1,18 +1,62 @@
-text {
-  font-size: 14px;
-  font-family: monospace;
+
+@import url('https://fonts.googleapis.com/css?family=Reenie+Beanie');
+
+body {
+  color: #dddddd;
+  background-color: black;
 }
 
-.tm-sidebar-left {
+
+.title {
+  font-family: 'Reenie Beanie', cursive;
+  color: #cccccc;
+  font-size: 6em;
+}
+
+.subtitle {
+  font-family: 'Reenie Beanie', cursive;
+  color: #cccccc;
+  font-size: 3em;
+}
+
+.team-name {
+  font-family: 'Reenie Beanie', cursive;
+  color: #cccccc;
+  font-size: 2em;
+}
+
+.lang-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: transparent;
+  border-width: 1px;
+  border-color: #cccccc;
+}
+
+.play-button {
+  background-color: transparent;
+  border-width: 1px;
+  border-color: #cccccc;
+}
+
+.about-button {
+  color: white;
+  margin-left: -10px; 
+}
+
+.about-button:hover, .about-button:focus {
+  color: white;
+}
+
+/********/
+
+#sidebar-left {
   position: fixed;
   top: 0px;
   bottom: 0;
   box-sizing: border-box;
   width: 105px !important;
-
-  /* border-right: 1px #e5e5e5 solid; */
   overflow: auto;
-  background-color: white;
   z-index: 100;
 }
 
@@ -20,28 +64,18 @@ text {
   padding: 60px 40px 60px 40px;
 }
 
-#top-menu {
-  z-index: 980;
-}
-
-.tm-main {
-  padding-left: 105px;
-}
-
-body {
-  background-color: black;
-}
+/*********/
 
 #visualization {
-  position: absolute;
+  position: fixed;
 }
 
-
+/*********/
 
 * { box-sizing: border-box; }
 .video-background {
   background: #000;
-  position: fixed;
+  /* position: fixed; */
   top: 0; right: 0; bottom: 0; left: 0;
   z-index: -99;
 }
@@ -54,9 +88,4 @@ body {
   height: 100%;
   pointer-events: none;
 
-/*  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);*/
 }

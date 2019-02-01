@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-	mode: 'development', // production
+	mode: 'production', // production
 	entry: './src/app.js',
 	output: {
 		filename: 'app.bundle.js',
@@ -61,14 +61,15 @@ module.exports = {
 					content: 'yes',
 				},
 			],
-			title: 'Fitbit Vis',
+			title: 'Dancing with Fitbit',
+			favicon: 'src/images/favico.png'
 		}),
-		new webpack.ProvidePlugin({
-			$: 'jquery',
-			jQuery: 'jquery',
-			'window.jQuery': 'jquery',
-			'window.$': 'jquery',
-		}),
+		// new webpack.ProvidePlugin({
+		// 	$: 'jquery',
+		// 	jQuery: 'jquery',
+		// 	'window.jQuery': 'jquery',
+		// 	'window.$': 'jquery',
+		// }),
 		new CopyWebpackPlugin([
 			{ from: 'src/dataset/', to: 'dataset/' },
 			{ from: 'src/images/', to: 'images/' },

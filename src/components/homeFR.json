@@ -1,0 +1,30 @@
+{
+    "title": "Dancing with Fitbit",
+    "description": "<p>Florence*, une chorégraphe et professeure de danse dans la fin cinquantaine, a suivi en continu ses activités physiques et quotidiennes avec une montre Fitbit Charge HR durant une semaine. Durant cette période, elle a noté son expérience et les réflexions qui ont émergé de celle-ci dans un journal de bord. Après la semaine de suivi en continu, elle a créé et performé une chorégraphie, inspirée de son expérience vécue. Les données récoltées par la technologie de suivi en continu ont alors été utilisées pour la création d’une trame sonore et la production d’effets visuels. Ces deux « re-travail » des données Fitbit ont été intégrés à une vidéo éditée et utilisés pour créer cette plate-forme web interactive.</p>Ce projet de recherche et de création, vise à explorer comment les données et l’expérience de suivi en continu peuvent être utilisées pour générer des formes subversives de matérialisation des données (à travers la chorégraphie, le son, les visuels). Nous avons voulu critiquer les injonctions liées aux corps vieillissants et aux normativités constitutives du « bien vieillir ». </p><p>Ce processus créatif est également devenu un nœud pour des explorations techniques et théoriques sur les corps produits à travers le dispositif Fitbit et ses activités liées (corps médiatisés, corps régulés, corps standardisés, corps vécus, etc.) de même que sur ce que constituent les « données ». Nous concevons les données comme étant culturellement médiées. Les processus de médiation qui participent de la production des données informent les manières par lesquelles elles sont produites, traitées et rendues effectives. Notre approche critique a visé à « retravailler » les corps biométriques produits par Fitbit, afin de déconstruire les narratifs et temporalités qui se retrouvent intégrés et produits dans leur production.</p><p>Plus d’information à venir quant au cadre théorique sous-tendant le projet et quant à ses dimensions créatives.</p>",
+    "startButton": "Start",
+    "langButton": "En",
+    "collabTitle": "Les collaborateurs et collaboratrices du projet ",
+    "sponsorTtile": "Sponsor",
+    "collborators": [
+        {
+            "name": "Florence",
+            "bio": "*Nom fictif, à sa demande.<br/>Florence est une chorégraphe et professeure de danse. Elle a participé au projet en suivant en continu ses activités et en créant et performant une chorégraphie inspirée de son expérience vécue. Cette même expérience vécue a par la suite été utilisée par les autres collaborateurs/collaboratrices dans leur propre processus créatif."
+        },
+        {
+            "name": "Myriam Durocher",
+            "bio": "Myriam Durocher est étudiante au doctorat en communication à l’Université de Montréal. Elle a été l’instigatrice et la coordonnatrice du projet. Elle a également approvisionné le groupe de la littérature critique issue du champ de la gérontologie critique qui soutient l’ensemble du projet. Son travail au sein de ce groupe de recherche questionne les relations de pouvoir qui se retrouvent négociées à travers l’élaboration d’injonctions et de normativités liant/en lien avec les corps vieillissants et les technologies de suivi en continu."
+        },
+        {
+            "name": "Julia Salles",
+            "bio": "Julia Salles est étudiante au doctorat en communication à l’Université du Québec à Montréal et chargée de cours à l’Université de Montréal. Elle a créé la vidéo éditée de la performance dansée, en y intégrant les visuels et les sons produits par Luciano et Samuel. Elle a également travaillé sur le développement d’une plate-forme web interactive, comme manière de présenter les matériaux dans des formes interactives et non linéaires."
+        },
+        {
+            "name": "Samuel Thulin",
+            "bio": "Samuel Thulin est un chercheur et un artiste qui s’inscrit à l’intersection des recherches sur la mobilité, des études médiatiques et en communication, des études sur le son et des études critiques sur le handicap. Il est présentement postdoctorant Horizon au département de communication de l’Université Concordia, travaillant au sein du Participatory Media cluster du Milieux Institute for Arts, Culture and Technology. Il a produit une trame sonore avec les données recueillies de Fitbit. Il a souhaité créer un paysage sonore atmosphérique, reflétant les tensions et l’ambivalence ressentie par Florence durant sa semaine de suivi en continu."
+        },
+        {
+            "name": "Luciano Frizzera",
+            "bio": "Luciano Frizzera est étudiant au doctorat en communication à l’Université Concordia. Il a récupéré les données Fitbit générées lors de la semaine de suivi en continu de Florence – non pas uniquement les données accessibles à l’utilisateur/l’utilisatrice Fitbit mais, plus largement, celles produites, recueillies et archivées par Fitbit. Il a également travaillé à la création de visualisations, produisant des graphiques guidés par les données dans le but de se détourner de la linéarité et de l’uniformité fournies par Fitbit à ses utilisateurs/utilisatrices."
+        }
+    ]
+}
