@@ -65,6 +65,10 @@ export default function dancing(app) {
 		}
 	};
 
+	this.audioStop = function audioStop() {
+		this.audioPlayer.stop();
+	};
+
 	this.videoFadeIn = function videoFadeIn() {
 		let videoContainer = d3.select('.video-foreground');
 		videoContainer

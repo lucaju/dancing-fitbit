@@ -85,6 +85,7 @@ export default function Sidebar(dancing) {
 					_this.dancing.applyFX(name);
 				} else if (name == 'About') {
 					d3.selectAll('*').transition();
+					_this.dancing.audioStop();
 					_this.dancing.app.changeView('home');
 				}
 			});

@@ -3,8 +3,7 @@
 */
 
 // modules
-import UIkit from 'uikit/dist/js/uikit.min';
-// import uikiticons from 'uikit/dist/js/uikit-icons.min';
+import 'uikit/dist/js/uikit.min';
 import * as d3 from 'd3';
 
 import 'uikit/dist/css/uikit.min.css';
@@ -15,9 +14,7 @@ import Home from './components/home';
 import Dancing from './components/dancing';
 
 
-
 // APP
-
 function App() {
 
 	this.view = 'home';
@@ -25,8 +22,6 @@ function App() {
 	this.metrics = [];
 
 	this.init = function init() {
-
-		// uikiticons(UIkit);
 
 		// components
 		this.dataModel = new DataModel(this);
