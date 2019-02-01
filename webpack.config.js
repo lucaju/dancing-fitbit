@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-	mode: 'development', // production
+	mode: 'production', // production
 	entry: './src/app.js',
 	output: {
 		filename: 'app.bundle.js',
@@ -62,6 +62,7 @@ module.exports = {
 				},
 			],
 			title: 'Dancing with Fitbit',
+			favicon: 'src/images/favico.png'
 		}),
 		// new webpack.ProvidePlugin({
 		// 	$: 'jquery',

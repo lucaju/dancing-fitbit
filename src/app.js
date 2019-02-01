@@ -4,7 +4,7 @@
 
 // modules
 import UIkit from 'uikit/dist/js/uikit.min';
-import uikiticons from 'uikit/dist/js/uikit-icons.min';
+// import uikiticons from 'uikit/dist/js/uikit-icons.min';
 import * as d3 from 'd3';
 
 import 'uikit/dist/css/uikit.min.css';
@@ -26,7 +26,7 @@ function App() {
 
 	this.init = function init() {
 
-		uikiticons(UIkit);
+		// uikiticons(UIkit);
 
 		// components
 		this.dataModel = new DataModel(this);

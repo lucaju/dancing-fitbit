@@ -27,7 +27,7 @@ export default function dancing(app) {
 		this.sidebar = new Sidebar(this);
 		this.sidebar.init();
 
-		// this.addAudio();
+		this.addAudio();
 		this.addVideo();
 
 		this.vis = new Vis(this);
@@ -99,15 +99,13 @@ export default function dancing(app) {
 			info: false,
 			modestBranding: true,
 			annotations: false,
-			// loop: 2, //loop
 			rel: 0
 		});
 
 		videoPlayer.load('E-4gJG3d6Ls');
 		videoPlayer.setVolume(0);
-		// videoPlayer.related = 0;
+		videoPlayer.related = false;
 		videoPlayer.info = false;
-		// videoPlayer.loop = 2;
 		// player.autoplay(true);
 		videoPlayer.play();
 
