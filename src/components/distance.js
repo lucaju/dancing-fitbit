@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import chroma from 'chroma-js';
 import {scaleRadial} from './scaleRadial';
 
 export default function distance(vis) {
@@ -8,7 +9,6 @@ export default function distance(vis) {
 
 	this.svgContainer;
 
-	const parseTime = d3.timeParse('%H:%M:%S');
 	const fullCircle = 2 * Math.PI;
 	
 	const innerRadius = 300;
@@ -17,7 +17,8 @@ export default function distance(vis) {
 	this.setup = function setup() {
 		this.svgContainer = this.vis.svg.append('g')
 			.attr('id', 'distance')
-			.attr('clip-path', 'url(#distanceClip)');
+			.attr('clip-path', 'url(#distanceClip)')
+			.attr('data-depth', '0.8');
 	};
 
 	this.addDay = function addDay(day) {
@@ -26,13 +27,6 @@ export default function distance(vis) {
 
 		//data
 		let data = this.app.getMetricByDay(day).distance;
-		data.map(function (d) {
-			//save hour
-			d.hour = d.time.split(':');
-			d.hour = d.hour[0];
-
-			d.time = parseTime(d.time);
-		});
 
 		// aggregated data
 		const aggregatedData = d3.nest()
@@ -84,8 +78,9 @@ export default function distance(vis) {
 			.append('path')
 			.attr('id', 'vis')
 			.datum(aggregatedData)
-			.attr('fill', '#e6550d')
-			.attr('stroke', '#cc8d35')
+			.attr('fill', chroma('#1b75bb').hex())
+			// .attr('fill', '#e6550d')
+			// .attr('stroke', '#cc8d35')
 			.attr('stroke-width', '1px')
 			.attr('d', line);
 
@@ -115,7 +110,8 @@ export default function distance(vis) {
 		//mask
 		let mask = innerSvgContainer.append('path')
 			.attr('id', 'mask')
-			.attr('fill', '#e6550d')
+			.attr('fill', chroma('#1b75bb').hex())
+			// .attr('fill', '#e6550d')
 			.attr('clip-path', 'url(#areaPlot)');
 
 		// we're ready to kick it off
@@ -139,6 +135,7 @@ export default function distance(vis) {
 			.attr('transform', `rotate(${angle})`)
 			.on('end', function () {
 				_this.vis.fadeOut(this);
+				_this.vis.changeDay(day+1);
 			});
 
 	};

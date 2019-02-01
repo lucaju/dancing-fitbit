@@ -19,8 +19,6 @@ export default function Home(_app) {
 
 	this.init = function init() {
 
-		const _this = this;
-
 		const updatePageData = function updatePageData() {
 			pageData = {
 				title: info.title,
@@ -40,7 +38,7 @@ export default function Home(_app) {
 			updatePageData();
 
 			const html = homeMustache(pageData);
-			d3.select('#intro').html(html);
+			d3.select('#home').html(html);
 
 			d3.select('#lang-button').on('click', function() {
 				let lang = d3.select(this).html();
@@ -48,26 +46,14 @@ export default function Home(_app) {
 			});
 
 			d3.select('#play-button').on('click', function() {
-				
-				_this.hide();
+				app.changeView('dancing');
 			});
 
+			window.scrollTo(0, 1);
 		};
 
-		d3.select('#app').append('div').attr('id', 'intro');
+		d3.select('#app').append('div').attr('id', 'home');
 		update();
-
-	};
-
-	this.hide = function hide() {
-		let view = d3.select('#intro');
-		view.transition()
-			.duration(2000)
-			.style('opacity', 0)
-			.on('end', function() {
-				d3.select('#intro').remove();
-				app.changeView();
-			});
 	};
 }
 

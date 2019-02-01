@@ -1,5 +1,7 @@
 import * as d3 from 'd3';
+import chroma from 'chroma-js';
 import {scaleRadial} from './scaleRadial';
+
 
 export default function hearRate(vis) {
 
@@ -8,7 +10,6 @@ export default function hearRate(vis) {
 
 	this.svgContainer;
 
-	const parseTime = d3.timeParse('%H:%M:%S');
 	const fullCircle = 2 * Math.PI;
 	
 	const innerRadius = 75;
@@ -18,7 +19,8 @@ export default function hearRate(vis) {
 
 	this.setup = function setup() {
 		this.svgContainer = this.vis.svg.append('g')
-			.attr('id', 'heart');
+			.attr('id', 'heart')
+			.attr('data-depth', '0.2');
 	};
 
 	this.addDay = function addDay(day) {
@@ -27,10 +29,6 @@ export default function hearRate(vis) {
 
 		//data
 		let data = this.app.getMetricByDay(day).heart;
-
-		data.map(function (d) {
-			d.time = parseTime(d.time);
-		});
 
 		//X Scale
 		let x = d3.scaleTime()
@@ -64,7 +62,8 @@ export default function hearRate(vis) {
 		let linePlot = innerSvgContainer.append('path')
 			.datum(data)
 			.attr('fill', 'none')
-			.attr('stroke', '#ed1c24')
+			// .attr('stroke', '#ed1c24')
+			.attr('stroke', chroma('#ec1c24').hex())
 			.attr('d', line);
 
 		// inner container rotation
@@ -80,6 +79,7 @@ export default function hearRate(vis) {
 			.attr('transform', `rotate(${angle})`)
 			.on('end', function () {
 				_this.vis.fadeOut(this);
+				_this.vis.changeDay(day+1);
 			});
 
 		//graph animation

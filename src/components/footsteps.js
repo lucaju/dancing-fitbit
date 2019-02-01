@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import chroma from 'chroma-js';
 import {scaleRadial} from './scaleRadial';
 
 export default function footSteps(vis) {
@@ -8,7 +9,6 @@ export default function footSteps(vis) {
 
 	this.svgContainer;
 
-	const parseTime = d3.timeParse('%H:%M:%S');
 	const fullCircle = 2 * Math.PI;
 	
 	const innerRadius = 200;
@@ -16,7 +16,8 @@ export default function footSteps(vis) {
 
 	this.setup = function setup() {
 		this.svgContainer = this.vis.svg.append('g')
-			.attr('id', 'footsteps');
+			.attr('id', 'footsteps')
+			.attr('data-depth', '0.6');
 	};
 
 	this.addDay = function addDay(day) {
@@ -25,9 +26,6 @@ export default function footSteps(vis) {
 
 		//daa
 		let data = this.app.getMetricByDay(day).steps;
-		data.map(function (d) {
-			d.time = parseTime(d.time);
-		});
 
 		//X Scale
 		let x = d3.scaleTime()
@@ -56,7 +54,8 @@ export default function footSteps(vis) {
 
 		scaterSteps.enter().append('circle')
 			.attr('r', 2)
-			.style('fill', '#cecece')
+			// .style('fill', '#cecece')
+			.style('fill', chroma('#f05a28').hex())
 			.style('opacity', 0)
 			.transition()
 			.duration(100)
@@ -90,6 +89,7 @@ export default function footSteps(vis) {
 			.attr('transform', `rotate(${angle})`)
 			.on('end', function () {
 				_this.vis.fadeOut(this);
+				_this.vis.changeDay(day+1);
 			});
 
 	};

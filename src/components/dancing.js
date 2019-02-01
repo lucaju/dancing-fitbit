@@ -28,7 +28,7 @@ export default function dancing(app) {
 		this.sidebar.init();
 
 		// this.addAudio();
-		// this.addVideo();
+		this.addVideo();
 
 		this.vis = new Vis(this);
 		this.vis.init();
@@ -58,7 +58,6 @@ export default function dancing(app) {
 	};
 
 	this.audioControl = function audioControl(state) {
-		console.log(this.audioPlayer.volume)
 		if (state == 'on') {
 			this.audioPlayer.volume = 1;
 		} else {
@@ -66,63 +65,70 @@ export default function dancing(app) {
 		}
 	};
 
+	this.videoFadeIn = function videoFadeIn() {
+		let videoContainer = d3.select('.video-foreground');
+		videoContainer
+			.style('display', 'none')
+			.style('opacity', 0)
+			.transition()
+			.delay(6000)
+			.duration(3000)
+			.style('display', 'inline')
+			.style('opacity', 1);
+	};
+
+	this.videoFadeOut = function videFadeOut() {
+		let videoContainer = d3.select('.video-foreground');
+		videoContainer
+			.transition()
+			.duration(2000)
+			.style('opacity', 0);
+	};
+
 	this.addVideo = function () {
+
+		const _this = this;
+		let videoDuration;
+
+		this.videoFadeIn();
+
 		const videoPlayer = new YTPlayer('#video-player',{
 			controls: false,
 			keyboard: false,
 			related: false,
 			info: false,
 			modestBranding: true,
-			annotations: false
+			annotations: false,
+			// loop: 2, //loop
+			rel: 0
 		});
 
-		// player.load('5m7n1SizP3E');
 		videoPlayer.load('E-4gJG3d6Ls');
 		videoPlayer.setVolume(0);
+		// videoPlayer.related = 0;
+		videoPlayer.info = false;
+		// videoPlayer.loop = 2;
 		// player.autoplay(true);
 		videoPlayer.play();
 
+		videoPlayer.on('playing', () => {
+			videoDuration = videoPlayer.getDuration();
+		});
 
-		// videoPlayer.on('playing', () => {
-		// 	console.log(videoPlayer.getDuration()); // => 351.521
-		// });
+		videoPlayer.on('timeupdate', () => {
+			if (Math.round(videoPlayer.getCurrentTime()) == Math.round(videoDuration)-3) {
+				_this.videoFadeOut();
+			}
+		});
 
-		// const player = new YTPlayer('#player', {
-		// 	// height: '390',
-		// 	// width: '640',
-		// 	videoId: 'FeSCXQ5DaTM',
-		// 	playerVars: {
-		// 		autoplay: 0, //Auto play
-		// 		//cc_load_policy: 0,        //Close Captiuon
-		// 		// disablekb: 1,            //Keyboard Control
-		// 		enablejsapi: 1, //API Control
-		// 		fs: 0, //Full Screen
-		// 		iv_load_policy: 3, //Annotation
-		// 		loop: 1, //loop
-		// 		rel: 0, //List of related videos in the end
-		// 		modestbranding: 1, //detail
-		// 		showinfo: 0, //Video info
-		// 		start: 0 //Starting point in (s). We acna also define where it should end (using the 'end' parameter)
-
-		// 	},
-		// 	events: {
-		// 		// 'onReady': onPlayerReady,
-		// 		// 'onStateChange': onPlayerStateChange
-		// 	}
-		// });
+	
 	};
 
 	this.videoControl = function audioControl(state) {
-
-		let display = 'inline';
-		
-		if (state == 'on') {
-			display = 'inline';
-		} else {
-			display = 'none';
-		}
-
-		d3.select('#video-player').style('display', display);
+		const opacity = (state == 'on') ? 1 : 0;
+		d3.select('#video-player').transition()
+			.duration(500)
+			.style('opacity', opacity);
 	};
 	
 

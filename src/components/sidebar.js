@@ -1,5 +1,6 @@
 import sidebarMustache from './sidebar.html';
-import {select, selectAll} from 'd3-selection/dist/d3-selection.min';
+// import {select, selectAll} from 'd3-selection/dist/d3-selection.min';
+import * as d3 from 'd3';
 
 
 export default function Sidebar(dancing) {
@@ -42,23 +43,25 @@ export default function Sidebar(dancing) {
 			effects: [{
 				name: 'gooey',
 				state: 'off'
+			}],
+			nav: [{
+				name: 'About'
 			}]
 		};
 
 		// buid page
 		const html = sidebarMustache(pageData);
-		select('#app').append('div').attr('id', 'tm-sidebar-left');
-		select('#tm-sidebar-left').html(html);
+		d3.select('#dancing').append('div').attr('id', 'sidebar-left');
+		d3.select('#sidebar-left').html(html);
 
-		selectAll('.option')
+		d3.selectAll('.option')
 			.style('opacity', function() {
-				if (select(this).attr('state') == 'off') return 0.5;
+				if (d3.select(this).attr('state') == 'off') return 0.5;
 			})
 			.on('click', function() {
 
-				const option = select(this);
+				const option = d3.select(this);
 				const name = option.attr('id').substring(7);
-				console.log(name);
 
 				let state = option.attr('state');
 
@@ -80,6 +83,9 @@ export default function Sidebar(dancing) {
 					_this.dancing.hideMetric(name);
 				} else if (name == 'gooey') {
 					_this.dancing.applyFX(name);
+				} else if (name == 'About') {
+					d3.selectAll('*').transition();
+					_this.dancing.app.changeView('home');
 				}
 			});
 

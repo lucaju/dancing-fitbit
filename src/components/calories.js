@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import chroma from 'chroma-js';
 import {scaleRadial} from './scaleRadial';
 
 export default function calories(vis) {
@@ -7,8 +8,7 @@ export default function calories(vis) {
 	this.app = vis.app;
 
 	this.svgContainer;
-
-	const parseTime = d3.timeParse('%H:%M:%S');
+	
 	const fullCircle = 2 * Math.PI;
 	
 	const innerRadius = 125;
@@ -16,7 +16,8 @@ export default function calories(vis) {
 
 	this.setup = function setup() {
 		this.svgContainer = this.vis.svg.append('g')
-			.attr('id', 'calories');
+			.attr('id', 'calories')
+			.attr('data-depth', '0.4');
 	};
 	
 	this.addDay = function addDay(day) {
@@ -25,9 +26,6 @@ export default function calories(vis) {
 
 		//data
 		let data = this.app.getMetricByDay(day).calories;
-		data.map(function (d) {
-			d.time = parseTime(d.time);
-		});
 
 		//X Scale
 		let x = d3.scaleTime()
@@ -62,7 +60,8 @@ export default function calories(vis) {
 		let segments = innerSvgContainer.append('path')
 			.datum(data)
 			.attr('fill', 'none')
-			.attr('stroke', '#92278f')
+			// .attr('stroke', '#92278f')
+			.attr('stroke', chroma('#ed2079').hex())
 			.attr('d', line);
 
 		// inner container rotation
@@ -79,6 +78,7 @@ export default function calories(vis) {
 			.attr('transform', `rotate(${angle})`)
 			.on('end', function () {
 				_this.vis.fadeOut(this);
+				_this.vis.changeDay(day+1);
 			});
 
 		// graph anomation

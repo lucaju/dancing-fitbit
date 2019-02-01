@@ -1,4 +1,3 @@
-import visMustache from './vis.html';
 // import scaleRadial from './d3-scale-radial';
 // import {extent,sum} from 'd3-array/dist/d3-array.min';
 // import {nest} from 'd3-collection/dist/d3-collection.min';
@@ -12,7 +11,7 @@ import visMustache from './vis.html';
 // require('d3-transition/dist/d3-transition.min');
 
 import * as d3 from 'd3';
-// import { throws } from 'assert';
+import Parallax from 'parallax-js';
 
 import ModuleHeart from './heartRate';
 import Calories from './calories';
@@ -45,27 +44,90 @@ export default function Vis(dancing) {
 		left: 10
 	};
 
-	const width = window.innerWidth - margin.left - margin.right - 105 - 40;
-	const height = window.innerHeight - margin.top - margin.bottom - 20;
-
+	let width;
+	let height;
 	let svgDefs;
 
 	this.init = function init() {
 
-		// data
-		const pageData = {
-			title: '',
-		};
-
-		// buid page
-		const html = visMustache(pageData);
-		d3.select('#app').append('div').attr('id', 'visualization');
-		d3.select('#visualization').html(html);
+		const _this = this;
 
 		this.setup();
 
 		this.setDay(this.day);
 
+		d3.select(window).on('resize', function() {
+			_this.resize();
+		});
+
+		const scene = document.getElementById('svg-inner');
+		const parallaxInstance = new Parallax(scene);
+
+	};
+
+	this.setup = function setup() {
+
+		this.setWindowSize();
+
+		this.svg = d3.select('#visualization').append('svg')
+			.attr('id','svg-vis')
+			.attr('width', width + margin.left + margin.right)
+			.attr('height', height + margin.top + margin.bottom);
+
+		const px = (width / 2) + 60;
+		const py = (height / 2) - 20;
+
+
+		svgDefs = this.svg.append('defs');
+
+		this.svg = this.svg.append('g')
+			.attr('id','svg-container')
+			.attr('transform', 'translate(' + px + ',' + py + ')');
+
+		this.svg = this.svg.append('g')
+			.attr('id','svg-inner');
+			
+
+		svgDefs
+			.append('clipPath')
+			// .append('mask')
+			.attr('id', 'distanceClip')
+			// .append('circle')
+			// .attr('cx','50%')
+			// .attr('cy','50%') 
+			// .attr('r',850)
+			// .attr('stroke','black')
+			// .attr('stroke-width','30')
+			// .attr('fill','none')
+
+			.append('path')
+			.attr('d', 'M225,0C100.74,0,0,100.74,0,225S100.74,450,225,450,450,349.26,450,225,349.26,0,225,0Zm0,375A150,150,0,1,1,375,225,150,150,0,0,1,225,375Z')
+			.attr('transform', 'translate(-450, -450) scale(2,2)');
+
+
+		this.distance.setup();
+		this.footSteps.setup();
+		this.calories.setup();
+		this.heart.setup();
+
+	};
+
+	this.setWindowSize = function setWindowSize() {
+		width = window.innerWidth - margin.left - margin.right;// - 40;
+		height = window.innerHeight - margin.top - margin.bottom;// - 20;
+	};
+
+	this.resize = function resize() {
+		this.setWindowSize();
+
+		d3.select('#svg-vis').attr('width', width + margin.left + margin.right);
+		d3.select('#svg-vis').attr('height', height + margin.top + margin.bottom);
+
+		const px = (width / 2) + 60;
+		const py = (height / 2) - 20;
+
+		d3.select('#svg-container').attr('transform', 'translate(' + px + ',' + py + ')');
+		// this.svg.attr('transform', 'translate(' + px + ',' + py + ')');
 	};
 
 	this.setDay = function setDay(day) {
@@ -134,52 +196,18 @@ export default function Vis(dancing) {
 		return ap;
 	};
 
-	this.setup = function setup() {
-
-		this.svg = d3.select('#vis').append('svg')
-			.attr('width', width + margin.left + margin.right)
-			.attr('height', height + margin.top + margin.bottom);
-
-
-		svgDefs = this.svg.append('defs');
-
-		this.svg = this.svg.append('g')
-			.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
-
-		svgDefs
-			.append('clipPath')
-			// .append('mask')
-			.attr('id', 'distanceClip')
-			// .append('circle')
-			// .attr('cx','50%')
-			// .attr('cy','50%') 
-			// .attr('r',850)
-			// .attr('stroke','black')
-			// .attr('stroke-width','30')
-			// .attr('fill','none')
-
-			.append('path')
-			.attr('d', 'M225,0C100.74,0,0,100.74,0,225S100.74,450,225,450,450,349.26,450,225,349.26,0,225,0Zm0,375A150,150,0,1,1,375,225,150,150,0,0,1,225,375Z')
-			.attr('transform', 'translate(-450, -450) scale(2,2)');
-
-
-		this.distance.setup();
-		this.footSteps.setup();
-		this.calories.setup();
-		this.heart.setup();
-
-	};
+	
 
 	this.applyGooeyFX = function applapplyGooeyFXyFX() {
 
 		this.gooeyOn = !this.gooeyOn;
 		this.gooeyFX();
 
-		if (this.gooeyOn) {
-			d3.select('#button-gooey').style('opacity', 1);
-		} else {
-			d3.select('#button-gooey').style('opacity', .5);
-		}
+		// if (this.gooeyOn) {
+		// 	d3.select('#button-gooey').style('opacity', 1);
+		// } else {
+		// 	d3.select('#button-gooey').style('opacity', .5);
+		// }
 	};
 
 
@@ -221,6 +249,10 @@ export default function Vis(dancing) {
 			.duration(d)
 			.style('opacity', 0.1);
 
+	};
+
+	this.changeDay = function changeDay(newDay) {
+		if (this.day != newDay) this.setDay(newDay);
 	};
 
 	this.hideMetric = function hideVis(visName) {

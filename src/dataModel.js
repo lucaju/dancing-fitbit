@@ -1,3 +1,5 @@
+import {timeParse} from 'd3-time-format/dist/d3-time-format.min';
+
 import heart10 from './dataset/heart/fitbit-heart-2018-07-10.json';
 import calories10 from './dataset/calories/fitbit-calories-2018-07-10.json';
 import steps10 from './dataset/steps/fitbit-steps-2018-07-10.json';
@@ -64,9 +66,7 @@ import sleep16 from './dataset/sleep/fitbit-sleep-2018-07-16.json';
 // import distance20 from './dataset/distance/fitbit-distance-2018-07-20.json';
 // import sleep20 from './dataset/sleep/fitbit-sleep-2018-07-20.json';
 
-export default function dataModel(app) {
-
-	// this.app = app;
+export default function dataModel() {
 
 	this.metrics = [
 		{
@@ -170,5 +170,27 @@ export default function dataModel(app) {
 		// },
 		
 	];
+
+	const parseTime = timeParse('%H:%M:%S');
+
+	for(const day of this.metrics) {
+		day.heart.map(function (d) {
+			d.time = parseTime(d.time);
+		});
+
+		day.calories.map(function (d) {
+			d.time = parseTime(d.time);
+		});
+
+		day.steps.map(function (d) {
+			d.time = parseTime(d.time);
+		});
+
+		day.distance.map(function (d) {
+			d.hour = d.time.split(':');
+			d.hour = d.hour[0];
+			d.time = parseTime(d.time);
+		});
+	}
 
 }
