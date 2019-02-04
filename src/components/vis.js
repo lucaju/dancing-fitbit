@@ -183,8 +183,8 @@ export default function Vis(dancing) {
 			parameter.angleDuration = mainSleep.timeInBed;
 
 			//velocity
-			parameter.duration = parameter.duration * 40;
-			parameter.angleDuration = parameter.angleDuration * 42;
+			parameter.duration = parameter.duration * 120;//40;
+			parameter.angleDuration = parameter.angleDuration * 126;//42;
 		}
 
 
@@ -195,8 +195,6 @@ export default function Vis(dancing) {
 		const ap = this.animationParameters.find(m => m.day == day);
 		return ap;
 	};
-
-	
 
 	this.applyGooeyFX = function applapplyGooeyFXyFX() {
 
@@ -209,7 +207,6 @@ export default function Vis(dancing) {
 		// 	d3.select('#button-gooey').style('opacity', .5);
 		// }
 	};
-
 
 	this.gooeyFX = function gooeyFX() {
 
