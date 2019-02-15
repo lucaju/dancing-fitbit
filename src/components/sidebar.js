@@ -18,7 +18,11 @@ export default function Sidebar(dancing) {
 					state: 'on'
 				},
 				{
-					name: 'audio',
+					name: 'audio1',
+					state: 'on'
+				},
+				{
+					name: 'audio2',
 					state: 'on'
 				}
 			],
@@ -75,10 +79,10 @@ export default function Sidebar(dancing) {
 
 				option.attr('state',state);
 
-				if (name == 'audio') {
-					_this.dancing.audioControl(state);
-				} else if (name == 'video') {
+				if (name == 'video') {
 					_this.dancing.videoControl(state);
+				} else  if (name == 'audio1' || name == 'audio2') {
+					_this.dancing.audioControl(state);
 				} else if (name == 'heart' || name == 'calories' || name == 'footsteps' || name == 'distance') {
 					_this.dancing.hideMetric(name);
 				} else if (name == 'gooey') {
