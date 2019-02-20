@@ -106,7 +106,7 @@ export default function dancing(app) {
 			rel: 0
 		});
 
-		videoPlayer.load('E-4gJG3d6Ls');
+		videoPlayer.load('0O17unTq4XQ');
 		videoPlayer.setVolume(0);
 		videoPlayer.related = false;
 		videoPlayer.info = false;

@@ -183,8 +183,8 @@ export default function Vis(dancing) {
 			parameter.angleDuration = mainSleep.timeInBed;
 
 			//velocity
-			parameter.duration = parameter.duration * 120;//40;
-			parameter.angleDuration = parameter.angleDuration * 126;//42;
+			parameter.duration = parameter.duration * 95;//40;
+			parameter.angleDuration = parameter.angleDuration * 97;//42;
 		}
 
 
