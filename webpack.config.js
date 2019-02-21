@@ -64,12 +64,6 @@ module.exports = {
 			title: 'Dancing with Fitbit',
 			favicon: 'src/images/favico.png'
 		}),
-		// new webpack.ProvidePlugin({
-		// 	$: 'jquery',
-		// 	jQuery: 'jquery',
-		// 	'window.jQuery': 'jquery',
-		// 	'window.$': 'jquery',
-		// }),
 		new CopyWebpackPlugin([
 			{ from: 'src/dataset/', to: 'dataset/' },
 			{ from: 'src/images/', to: 'images/' },

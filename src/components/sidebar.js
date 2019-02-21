@@ -1,100 +1,111 @@
 import sidebarMustache from './sidebar.html';
-// import {select, selectAll} from 'd3-selection/dist/d3-selection.min';
-import * as d3 from 'd3';
+import {select,selectAll} from 'd3';
 
 
 export default function Sidebar(dancing) {
 	this.dancing = dancing;
+
+	this.pageData;
 
 	this.init = function init() {
 
 		const _this = this;
 
 		// data
-		const pageData = {
+		this.pageData = {
 			audivisuals: [
 				{
 					name:'video',
-					state: 'on'
+					isOn: true
 				},
 				{
-					name: 'audio1',
-					state: 'on'
+					name: 'sine',
+					isOn: true
 				},
 				{
-					name: 'audio2',
-					state: 'on'
+					name: 'boat',
+					isOn: true
 				}
 			],
 			metrics: [
 				{
 					name: 'heart',
-					state: 'on'
+					isOn: true
 				},
 				{
 					name: 'calories',
-					state: 'on'
+					isOn: true
 				},
 				{
 					name: 'footsteps',
-					state: 'on'
+					isOn: true
 				},
 				{
 					name: 'distance',
-					state: 'on'
+					isOn: true
 				}
 			],
 			effects: [{
 				name: 'gooey',
-				state: 'off'
+				isOn: false
 			}],
-			nav: [{
-				name: 'About'
-			}]
+			nav: [
+				{
+					name: 'about'
+				},
+				{
+					name: 'restart'
+				}
+			]
 		};
 
 		// buid page
-		const html = sidebarMustache(pageData);
-		d3.select('#dancing').append('div').attr('id', 'sidebar-left');
-		d3.select('#sidebar-left').html(html);
+		const html = sidebarMustache(this.pageData);
+		select('#dancing').append('div').attr('id', 'sidebar-left');
+		select('#sidebar-left').html(html);
 
-		d3.selectAll('.option')
+		selectAll('.option')
 			.style('opacity', function() {
-				if (d3.select(this).attr('state') == 'off') return 0.5;
+				let p = 1;
+				if (select(this).attr('ison') == 'false') p = .5;
+				return p;
 			})
+			.style('cursor','pointer')
 			.on('click', function() {
 
-				const option = d3.select(this);
+				const option = select(this);
 				const name = option.attr('id').substring(7);
+				let isOn = option.attr('ison');
 
-				let state = option.attr('state');
-
-				if (state == 'off') {
-					state = 'on';
-					option.style('opacity',1);
-				} else {
-					state = 'off';
-					option.style('opacity',.5);
+				if (isOn) {
+					isOn = (isOn == 'true') ? false : true;
+					let opacity = (isOn) ? 1 : .5;
+					option.attr('ison', isOn);
+					option.style('opacity',opacity);
 				}
-
-				option.attr('state',state);
-
+			
 				if (name == 'video') {
-					_this.dancing.videoControl(state);
-				} else  if (name == 'audio1' || name == 'audio2') {
-					_this.dancing.audioControl(state);
+					_this.dancing.videoControl(isOn);
+				} else  if (name == 'sine' || name == 'boat') {
+					_this.dancing.audioControl(name,isOn);
 				} else if (name == 'heart' || name == 'calories' || name == 'footsteps' || name == 'distance') {
 					_this.dancing.hideMetric(name);
 				} else if (name == 'gooey') {
 					_this.dancing.applyFX(name);
-				} else if (name == 'About') {
-					d3.selectAll('*').transition();
+				} else if (name == 'about') {
+					selectAll('*').transition();
 					_this.dancing.audioStop();
 					_this.dancing.app.changeView('home');
+				} else if (name == 'restart') {
+					_this.dancing.restart();
+					_this.restart();
 				}
 			});
 
+	};
 
-
+	this.restart = function restart() {
+		select('#sidebar-left').remove();
+		this.init();
 	};
 }

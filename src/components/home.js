@@ -1,14 +1,9 @@
-import homeMustache from './home.html';
-// // import {select, Selection} from 'd3-selection/dist/d3-selection.min';
-// import {select,selection,selectAll,selector} from 'd3-selection/dist/d3-selection.min';
-// require('d3-transition/dist/d3-transition.min');
-// import {transition, Transition} from 'd3-transition';
-// // import 'd3-transition';
-
-import * as d3 from 'd3';
+import {select} from 'd3/dist/d3.min';
 
 import en from './homeEN.json';
 import fr from './homeFR.json';
+
+import homeMustache from './home.html';
 
 export default function Home(_app) {
 
@@ -38,21 +33,21 @@ export default function Home(_app) {
 			updatePageData();
 
 			const html = homeMustache(pageData);
-			d3.select('#home').html(html);
+			select('#home').html(html);
 
-			d3.select('#lang-button').on('click', function() {
-				let lang = d3.select(this).html();
+			select('#lang-button').on('click', function() {
+				let lang = select(this).html();
 				update(lang);
 			});
 
-			d3.select('#play-button').on('click', function() {
+			select('#play-button').on('click', function() {
 				app.changeView('dancing');
 			});
 
 			window.scrollTo(0, 1);
 		};
 
-		d3.select('#app').append('div').attr('id', 'home');
+		select('#app').append('div').attr('id', 'home');
 		update();
 	};
 }

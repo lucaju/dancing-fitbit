@@ -1,17 +1,5 @@
-// import scaleRadial from './d3-scale-radial';
-// import {extent,sum} from 'd3-array/dist/d3-array.min';
-// import {nest} from 'd3-collection/dist/d3-collection.min';
-// import {easeLinear} from 'd3-ease/dist/d3-ease.min';
-// import {scaleTime, scaleLinear} from 'd3-scale/dist/d3-scale.min';
-// import {select,selection,selectAll} from 'd3-selection/dist/d3-selection.min';
-// import {arc,lineRadial,curveMonotoneX,curveBasis} from 'd3-shape/dist/d3-shape.min';
-// import {timeFormat,timeParse} from 'd3-time-format/dist/d3-time-format.min';
-
-// import {transition} from 'd3-transition';
-// require('d3-transition/dist/d3-transition.min');
-
-import * as d3 from 'd3';
-import Parallax from 'parallax-js';
+import {select} from 'd3/dist/d3.min';
+import Parallax from 'parallax-js/dist/parallax.min';
 
 import ModuleHeart from './heartRate';
 import Calories from './calories';
@@ -56,7 +44,7 @@ export default function Vis(dancing) {
 
 		this.setDay(this.day);
 
-		d3.select(window).on('resize', function() {
+		select(window).on('resize', function() {
 			_this.resize();
 		});
 
@@ -69,7 +57,7 @@ export default function Vis(dancing) {
 
 		this.setWindowSize();
 
-		this.svg = d3.select('#visualization').append('svg')
+		this.svg = select('#visualization').append('svg')
 			.attr('id','svg-vis')
 			.attr('width', width + margin.left + margin.right)
 			.attr('height', height + margin.top + margin.bottom);
@@ -90,16 +78,7 @@ export default function Vis(dancing) {
 
 		svgDefs
 			.append('clipPath')
-			// .append('mask')
 			.attr('id', 'distanceClip')
-			// .append('circle')
-			// .attr('cx','50%')
-			// .attr('cy','50%') 
-			// .attr('r',850)
-			// .attr('stroke','black')
-			// .attr('stroke-width','30')
-			// .attr('fill','none')
-
 			.append('path')
 			.attr('d', 'M225,0C100.74,0,0,100.74,0,225S100.74,450,225,450,450,349.26,450,225,349.26,0,225,0Zm0,375A150,150,0,1,1,375,225,150,150,0,0,1,225,375Z')
 			.attr('transform', 'translate(-450, -450) scale(2,2)');
@@ -120,14 +99,13 @@ export default function Vis(dancing) {
 	this.resize = function resize() {
 		this.setWindowSize();
 
-		d3.select('#svg-vis').attr('width', width + margin.left + margin.right);
-		d3.select('#svg-vis').attr('height', height + margin.top + margin.bottom);
+		select('#svg-vis').attr('width', width + margin.left + margin.right);
+		select('#svg-vis').attr('height', height + margin.top + margin.bottom);
 
 		const px = (width / 2) + 60;
 		const py = (height / 2) - 20;
 
-		d3.select('#svg-container').attr('transform', 'translate(' + px + ',' + py + ')');
-		// this.svg.attr('transform', 'translate(' + px + ',' + py + ')');
+		select('#svg-container').attr('transform', 'translate(' + px + ',' + py + ')');
 	};
 
 	this.setDay = function setDay(day) {
@@ -183,8 +161,8 @@ export default function Vis(dancing) {
 			parameter.angleDuration = mainSleep.timeInBed;
 
 			//velocity
-			parameter.duration = parameter.duration * 95;//40;
-			parameter.angleDuration = parameter.angleDuration * 97;//42;
+			parameter.duration = parameter.duration * 102;//40;
+			parameter.angleDuration = parameter.angleDuration * 105;//42;
 		}
 
 
@@ -197,15 +175,8 @@ export default function Vis(dancing) {
 	};
 
 	this.applyGooeyFX = function applapplyGooeyFXyFX() {
-
 		this.gooeyOn = !this.gooeyOn;
 		this.gooeyFX();
-
-		// if (this.gooeyOn) {
-		// 	d3.select('#button-gooey').style('opacity', 1);
-		// } else {
-		// 	d3.select('#button-gooey').style('opacity', .5);
-		// }
 	};
 
 	this.gooeyFX = function gooeyFX() {
@@ -216,7 +187,6 @@ export default function Vis(dancing) {
 
 			source.style('filter', 'url(#gooey)'); //Set the filter on the container svg
 
-			// let defs = svg.append('defs');
 			let filter = svgDefs.append('filter').attr('id', 'gooey');
 
 			filter.append('feGaussianBlur')
@@ -232,19 +202,23 @@ export default function Vis(dancing) {
 
 		} else {
 			//remove FX
-			// source.select('defs').remove();
 			source.style('filter', null);
 
 		}
 	};
 
 	this.fadeOut = function fadeOut(source) {
-		const s = d3.select(source);
+		const _this = this;
+		const s = select(source);
 		const d = this.getAnimationParametersByDay(s.attr('day')).angleDuration / 3;
-
 		s.transition()
 			.duration(d)
-			.style('opacity', 0.1);
+			.style('opacity', 0.1)
+			.on('end', function() {
+				if (_this.day > _this.lastDay) {
+					_this.dancing.end();
+				}
+			});
 
 	};
 
@@ -253,19 +227,16 @@ export default function Vis(dancing) {
 	};
 
 	this.hideMetric = function hideVis(visName) {
+		const s = select(`#${visName}`);
 
-		const s = d3.select(`#${visName}`);
-
-		if (s.style('display') == 'inline') {
+		if (s.style('display') == 'block') {
 
 			s.transition()
 				.duration(500)
 				.style('opacity', 0)
 				.on('end', function () {
-					d3.select(this).style('display', 'none');
+					select(this).style('display', 'none');
 				});
-
-			d3.select(`#button-${visName}`).style('opacity', .5);
 
 		} else {
 
@@ -273,13 +244,25 @@ export default function Vis(dancing) {
 				.duration(500)
 				.style('opacity', 1)
 				.on('start', function () {
-					d3.select(this).style('display', 'inline');
+					select(this).style('display', 'block');
 				});
-
-			d3.select(`#button-${visName}`).style('opacity', 1);
-
 		}
 
 	};
 
+	this.restart = function restart() {
+		this.day = this.initialDay;
+		this.gooeyOn = false;
+		this.animationParameters = [];
+
+		select('#visualization').selectAll('*').interrupt();
+		select('#visualization').html('');
+
+		this.distance = new Distance(this);
+		this.footSteps = new FootSteps(this);
+		this.calories = new Calories(this);
+		this.heart = new ModuleHeart(this);
+
+		this.init();
+	};
 }

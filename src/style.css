@@ -35,8 +35,17 @@ body {
 
 .play-button {
   background-color: transparent;
-  border-width: 1px;
   border-color: #cccccc;
+}
+
+.restart-button {
+  background-color: transparent;
+  border-color: #cccccc;
+  position: absolute;
+  top: 48%;
+  left: 47%;
+  display: none;
+  opacity: 0;
 }
 
 .about-button {

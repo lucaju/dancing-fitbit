@@ -4,7 +4,7 @@
 
 // modules
 import 'uikit/dist/js/uikit.min';
-import * as d3 from 'd3';
+import {select} from 'd3/dist/d3.min';
 
 import 'uikit/dist/css/uikit.min.css';
 import './style.css';
@@ -57,7 +57,7 @@ function App() {
 
 	this.hideView = function hide() {
 		let viewName = this.view;
-		let view = d3.select(`#${this.view}`);
+		let view = select(`#${this.view}`);
 		view.transition()
 			.duration(2000)
 			.style('opacity', 0)
@@ -68,7 +68,7 @@ function App() {
 	};
 
 	this.showView = function hide() {
-		let view = d3.select(`#${this.view}`);
+		let view = select(`#${this.view}`);
 		view.style('opacity', 0);
 		view.transition()
 			.duration(2000)
@@ -81,4 +81,3 @@ function App() {
 const app = new App();
 window.app = app;
 app.init();
-
