@@ -42,30 +42,6 @@ import steps16 from './dataset/steps/fitbit-steps-2018-07-16.json';
 import distance16 from './dataset/distance/fitbit-distance-2018-07-16.json';
 import sleep16 from './dataset/sleep/fitbit-sleep-2018-07-16.json';
 
-// import heart17 from './dataset/heart/fitbit-heart-2018-07-17.json';
-// import calories17 from './dataset/calories/fitbit-calories-2018-07-17.json';
-// import steps17 from './dataset/steps/fitbit-steps-2018-07-17.json';
-// import distance17 from './dataset/distance/fitbit-distance-2018-07-17.json';
-// import sleep17 from './dataset/sleep/fitbit-sleep-2018-07-17.json';
-
-// import heart18 from './dataset/heart/fitbit-heart-2018-07-18.json';
-// import calories18 from './dataset/calories/fitbit-calories-2018-07-18.json';
-// import steps18 from './dataset/steps/fitbit-steps-2018-07-18.json';
-// import distance18 from './dataset/distance/fitbit-distance-2018-07-18.json';
-// import sleep18 from './dataset/sleep/fitbit-sleep-2018-07-18.json';
-
-// import heart19 from './dataset/heart/fitbit-heart-2018-07-19.json';
-// import calories19 from './dataset/calories/fitbit-calories-2018-07-19.json';
-// import steps19 from './dataset/steps/fitbit-steps-2018-07-19.json';
-// import distance19 from './dataset/distance/fitbit-distance-2018-07-19.json';
-// import sleep19 from './dataset/sleep/fitbit-sleep-2018-07-19.json';
-
-// import heart20 from './dataset/heart/fitbit-heart-2018-07-20.json';
-// import calories20 from './dataset/calories/fitbit-calories-2018-07-20.json';
-// import steps20 from './dataset/steps/fitbit-steps-2018-07-20.json';
-// import distance20 from './dataset/distance/fitbit-distance-2018-07-20.json';
-// import sleep20 from './dataset/sleep/fitbit-sleep-2018-07-20.json';
-
 export default function dataModel() {
 
 	this.metrics = [
@@ -132,42 +108,6 @@ export default function dataModel() {
 			distance: distance16['activities-distance-intraday'].dataset,
 			sleep: sleep16.sleep,
 		},
-		// {
-		// 	day: 17,
-		// 	month: 'july',
-		// 	heart: heart17['activities-heart-intraday'].dataset,
-		// 	calories: calories17['activities-calories-intraday'].dataset,
-		// 	steps: steps17['activities-steps-intraday'].dataset,
-		// 	distance: distance17['activities-distance-intraday'].dataset,
-		// 	sleep: sleep17.sleep,
-		// },
-		// {
-		// 	day: 18,
-		// 	month: 'july',
-		// 	heart: heart18['activities-heart-intraday'].dataset,
-		// 	calories: calories18['activities-calories-intraday'].dataset,
-		// 	steps: steps18['activities-steps-intraday'].dataset,
-		// 	distance: distance18['activities-distance-intraday'].dataset,
-		// 	sleep: sleep18.sleep,
-		// },
-		// {
-		// 	day: 19,
-		// 	month: 'july',
-		// 	heart: heart19['activities-heart-intraday'].dataset,
-		// 	calories: calories19['activities-calories-intraday'].dataset,
-		// 	steps: steps19['activities-steps-intraday'].dataset,
-		// 	distance: distance19['activities-distance-intraday'].dataset,
-		// 	sleep: sleep19.sleep,
-		// },
-		// {
-		// 	day: 20,
-		// 	month: 'july',
-		// 	heart: heart20['activities-heart-intraday'].dataset,
-		// 	calories: calories20['activities-calories-intraday'].dataset,
-		// 	steps: steps20['activities-steps-intraday'].dataset,
-		// 	distance: distance20['activities-distance-intraday'].dataset,
-		// 	sleep: sleep20.sleep,
-		// },
 		
 	];
 

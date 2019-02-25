@@ -1,5 +1,5 @@
-import * as d3 from 'd3';
-import chroma from 'chroma-js';
+import {scaleTime,extent,easeLinear} from 'd3/dist/d3.min';
+import chroma from 'chroma-js/chroma.min';
 import {scaleRadial} from './scaleRadial';
 
 export default function footSteps(vis) {
@@ -28,16 +28,16 @@ export default function footSteps(vis) {
 		let data = this.app.getMetricByDay(day).steps;
 
 		//X Scale
-		let x = d3.scaleTime()
+		let x = scaleTime()
 			.range([0, fullCircle])
-			.domain(d3.extent(data, function (d) {
+			.domain(extent(data, function (d) {
 				return d.time;
 			}));
 
 		//Y Scale
 		let y = scaleRadial()
 			.range([innerRadius, outerRadius])
-			.domain(d3.extent(data, function (d) {
+			.domain(extent(data, function (d) {
 				return d.value;
 			}));
 
@@ -54,12 +54,11 @@ export default function footSteps(vis) {
 
 		scaterSteps.enter().append('circle')
 			.attr('r', 2)
-			// .style('fill', '#cecece')
 			.style('fill', chroma('#f05a28').hex())
 			.style('opacity', 0)
 			.transition()
 			.duration(100)
-			.ease(d3.easeLinear)
+			.ease(easeLinear)
 			.delay(function (d, i) {
 				return i * (_this.vis.getAnimationParametersByDay(day).duration / data.length);
 			})

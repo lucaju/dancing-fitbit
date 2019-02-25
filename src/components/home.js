@@ -1,59 +1,53 @@
+import {select} from 'd3/dist/d3.min';
 import homeMustache from './home.html';
-// // import {select, Selection} from 'd3-selection/dist/d3-selection.min';
-// import {select,selection,selectAll,selector} from 'd3-selection/dist/d3-selection.min';
-// require('d3-transition/dist/d3-transition.min');
-// import {transition, Transition} from 'd3-transition';
-// // import 'd3-transition';
-
-import * as d3 from 'd3';
-
-import en from './homeEN.json';
-import fr from './homeFR.json';
 
 export default function Home(_app) {
 
+	//parameters
 	const app = _app;
-
 	let pageData = {};
-	let info = en;
 
+
+	//initialize
 	this.init = function init() {
-
-		const updatePageData = function updatePageData() {
-			pageData = {
-				title: info.title,
-				description: info.description,
-				startButton: info.startButton,
-				langButton: info.langButton,
-				collabTitle: info.collabTitle,
-				sponsorTtile: info.sponsorTtile,
-				collborators: info.collborators,
-			};
-		};
-
-		const update = function update(lang) {
-
-			info = (lang == 'Fr') ? fr : en;
-
-			updatePageData();
-
-			const html = homeMustache(pageData);
-			d3.select('#home').html(html);
-
-			d3.select('#lang-button').on('click', function() {
-				let lang = d3.select(this).html();
-				update(lang);
-			});
-
-			d3.select('#play-button').on('click', function() {
-				app.changeView('dancing');
-			});
-
-			window.scrollTo(0, 1);
-		};
-
-		d3.select('#app').append('div').attr('id', 'home');
+		//add div and update
+		select('#app').append('div').attr('id', 'home');
 		update();
+	};
+
+	//update info
+	const updatePageData = function updatePageData() {
+		pageData = {
+			title: app.localization.title,
+			description: app.localization.description,
+			startButton: app.localization.startButton,
+			headphones: app.localization.headphones,
+			langButton: app.localization.langButton,
+			collabTitle: app.localization.collabTitle,
+			sponsorTtile: app.localization.sponsorTtile,
+			collborators: app.localization.collborators,
+		};
+	};
+
+	//update interface
+	const update = function update() {
+
+		//update info
+		updatePageData();
+		const html = homeMustache(pageData);
+		select('#home').html(html);
+
+		//set interaction
+		select('#lang-button').on('click', function() {
+			const lang = select(this).html();
+			app.changeLanguage(lang);
+			update();
+			window.scrollTo(0, 1);
+		});
+
+		select('#play-button').on('click', function() {
+			app.changeView('dancing');
+		});
 	};
 }
 

@@ -4,7 +4,7 @@
 
 // modules
 import 'uikit/dist/js/uikit.min';
-import * as d3 from 'd3';
+import {select} from 'd3/dist/d3.min';
 
 import 'uikit/dist/css/uikit.min.css';
 import './style.css';
@@ -13,11 +13,16 @@ import DataModel from './dataModel';
 import Home from './components/home';
 import Dancing from './components/dancing';
 
+import en from './localization/en.json';
+import fr from './localization/fr.json';
+
 
 // APP
 function App() {
 
 	this.view = 'home';
+	this.lang = 'en';
+	this.localization = en;
 
 	this.metrics = [];
 
@@ -57,7 +62,7 @@ function App() {
 
 	this.hideView = function hide() {
 		let viewName = this.view;
-		let view = d3.select(`#${this.view}`);
+		let view = select(`#${this.view}`);
 		view.transition()
 			.duration(2000)
 			.style('opacity', 0)
@@ -68,7 +73,7 @@ function App() {
 	};
 
 	this.showView = function hide() {
-		let view = d3.select(`#${this.view}`);
+		let view = select(`#${this.view}`);
 		view.style('opacity', 0);
 		view.transition()
 			.duration(2000)
@@ -76,9 +81,12 @@ function App() {
 			.style('opacity', 1);
 	};
 
+	this.changeLanguage = function changeLanguage(lang) {
+		this.localization = (lang.toLowerCase() == 'fr') ? fr : en;
+	};
+
 }
 
 const app = new App();
 window.app = app;
 app.init();
-

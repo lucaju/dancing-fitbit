@@ -1,5 +1,5 @@
-import * as d3 from 'd3';
-import chroma from 'chroma-js';
+import {nest,sum,scaleTime,extent,curveBasisClosed,lineRadial} from 'd3/dist/d3.min';
+import chroma from 'chroma-js/chroma.min';
 import {scaleRadial} from './scaleRadial';
 
 export default function distance(vis) {
@@ -13,6 +13,9 @@ export default function distance(vis) {
 	
 	const innerRadius = 300;
 	const outerRadius = 450;
+
+	this.innerSvgContainer;
+	this.mask;
 
 	this.setup = function setup() {
 		this.svgContainer = this.vis.svg.append('g')
@@ -29,12 +32,12 @@ export default function distance(vis) {
 		let data = this.app.getMetricByDay(day).distance;
 
 		// aggregated data
-		const aggregatedData = d3.nest()
+		const aggregatedData = nest()
 			.key(function (d) {
 				return d.hour;
 			})
 			.rollup(function (v) {
-				v.valueD = d3.sum(v, function (d) {
+				v.valueD = sum(v, function (d) {
 					return d.value;
 				});
 				return v.valueD;
@@ -43,44 +46,42 @@ export default function distance(vis) {
 
 
 		//X Scale
-		let x = d3.scaleTime()
+		let x = scaleTime()
 			.range([0, fullCircle])
-			.domain(d3.extent(aggregatedData, function (d) {
+			.domain(extent(aggregatedData, function (d) {
 				return d.key;
 			}));
 
 		//Y Scale
 		let y = scaleRadial()
 			.range([innerRadius, outerRadius])
-			.domain(d3.extent(aggregatedData, function (d) {
+			.domain(extent(aggregatedData, function (d) {
 				return d.value;
 			}));
 
 		//Inner container
-		let innerSvgContainer = this.svgContainer.append('g')
+		this.innerSvgContainer = this.svgContainer.append('g')
 			.attr('id', `day${day}`)
 			.attr('day', day);
 
 		//Line Graph
-		let line = d3.lineRadial()
+		let line = lineRadial()
 			.angle(function (d) {
 				return x(d.key);
 			})
 			.radius(function (d) {
 				return y(d.value);
 			})
-			.curve(d3.curveBasisClosed); //Slight rounding without too much deviation
+			.curve(curveBasisClosed); //Slight rounding without too much deviation
 
 		//Graph
-		innerSvgContainer
+		this.innerSvgContainer
 			.append('clipPath') // define a clip path
 			.attr('id', 'areaPlot') // give the clipPath an ID
 			.append('path')
 			.attr('id', 'vis')
 			.datum(aggregatedData)
 			.attr('fill', chroma('#1b75bb').hex())
-			// .attr('fill', '#e6550d')
-			// .attr('stroke', '#cc8d35')
 			.attr('stroke-width', '1px')
 			.attr('d', line);
 
@@ -108,14 +109,13 @@ export default function distance(vis) {
 		}
 
 		//mask
-		let mask = innerSvgContainer.append('path')
+		this.mask = this.innerSvgContainer.append('path')
 			.attr('id', 'mask')
 			.attr('fill', chroma('#1b75bb').hex())
-			// .attr('fill', '#e6550d')
 			.attr('clip-path', 'url(#areaPlot)');
 
 		// we're ready to kick it off
-		mask.transition().duration(this.vis.getAnimationParametersByDay(day).duration)
+		this.mask.transition().duration(this.vis.getAnimationParametersByDay(day).duration)
 			.attrTween('d', function () {
 				return interpolateSVGSegment(0, 0, outerRadius, 0, 359.99);
 			});
@@ -124,11 +124,11 @@ export default function distance(vis) {
 		let angle = this.vis.getAnimationParametersByDay(day).angle;
 
 		if (day > 10) {
-			innerSvgContainer.attr('transform', `rotate(${this.vis.getAnimationParametersByDay(day-1).angle})`);
+			this.innerSvgContainer.attr('transform', `rotate(${this.vis.getAnimationParametersByDay(day-1).angle})`);
 			angle = this.vis.getAnimationParametersByDay(day - 1).angle + this.vis.getAnimationParametersByDay(day).angle;
 		}
 
-		innerSvgContainer
+		this.innerSvgContainer
 			.transition()
 			.duration(this.vis.getAnimationParametersByDay(day).angleDuration)
 			.delay(4500)

@@ -1,5 +1,5 @@
-import * as d3 from 'd3';
-import chroma from 'chroma-js';
+import {scaleTime,extent,easeLinear,lineRadial,curveStep} from 'd3/dist/d3.min';
+import chroma from 'chroma-js/chroma.min';
 import {scaleRadial} from './scaleRadial';
 
 export default function calories(vis) {
@@ -28,16 +28,16 @@ export default function calories(vis) {
 		let data = this.app.getMetricByDay(day).calories;
 
 		//X Scale
-		let x = d3.scaleTime()
+		let x = scaleTime()
 			.range([0, fullCircle])
-			.domain(d3.extent(data, function (d) {
+			.domain(extent(data, function (d) {
 				return d.time;
 			}));
 
 		//Y Scale
 		let y = scaleRadial()
 			.range([innerRadius, outerRadius])
-			.domain(d3.extent(data, function (d) {
+			.domain(extent(data, function (d) {
 				return d.value;
 			}));
 
@@ -47,20 +47,19 @@ export default function calories(vis) {
 			.attr('day', day);
 
 		//Line graph
-		let line = d3.lineRadial()
+		let line = lineRadial()
 			.angle(function (d) {
 				return x(d.time);
 			})
 			.radius(function (d) {
 				return y(d.value);
 			})
-			.curve(d3.curveStep); //Slight rounding without too much deviation
+			.curve(curveStep); //Slight rounding without too much deviation
 
 		//graph
 		let segments = innerSvgContainer.append('path')
 			.datum(data)
 			.attr('fill', 'none')
-			// .attr('stroke', '#92278f')
 			.attr('stroke', chroma('#ed2079').hex())
 			.attr('d', line);
 
@@ -88,7 +87,7 @@ export default function calories(vis) {
 			.attr('stroke-dashoffset', +lineLength)
 			.transition()
 			.duration(this.vis.getAnimationParametersByDay(day).duration)
-			.ease(d3.easeLinear)
+			.ease(easeLinear)
 			.attr('stroke-dashoffset', 0);
 
 	};

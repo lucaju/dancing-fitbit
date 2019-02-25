@@ -4,7 +4,7 @@
 			{{#audivisuals}}
 			<li id='button-{{name}}'
 				class="option uk-margin"
-				state={{state}}>
+				ison={{isOn}}>
 				<a><img data-src="images/{{name}}.png"
 						alt="{{name}}" uk-img></a>
 			</li>
@@ -17,7 +17,7 @@
 			{{#metrics}}
 			<li id='button-{{name}}'
 				class="option uk-margin"
-				state={{state}} >
+				ison={{isOn}} >
 				<a><img data-src="images/{{name}}.png"
 					alt="{{name}}" uk-img></a>
 			</li>
@@ -30,7 +30,7 @@
 			{{#effects}}
 			<li id='button-{{name}}'
 				class="option uk-margin"
-				state={{state}} >
+				ison={{isOn}} >
 				<a><img data-src="images/{{name}}.png"
 					alt="{{name}}" uk-img></a>
 			</li>
@@ -41,9 +41,10 @@
 	<div class="uk-margin-medium-top uk-margin-medium-bottom">
 		<ul class="uk-list">
 			{{#nav}}
-			<li id='button-{{name}}' class="option uk-margin">
-				<button id="about-button"
-						class="uk-button uk-button-text uk-button-small uk-align-left about-button">{{name}}</button>
+			<li id='button-{{name}}'
+				class="option uk-margin"
+				<a><img data-src="images/{{name}}.png"
+					alt="{{name}}" uk-img></a>
 			</li>
 			{{/nav}}
 		</ul>
