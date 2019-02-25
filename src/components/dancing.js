@@ -21,7 +21,7 @@ export default function dancing(app) {
 	this.init = function init() {
 
 		this.pageData = {
-			restart: 'Restart'
+			restartButton: app.localization.restartButton
 		};
 
 		select('#app').append('div').attr('id', 'dancing');

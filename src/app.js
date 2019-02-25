@@ -13,11 +13,16 @@ import DataModel from './dataModel';
 import Home from './components/home';
 import Dancing from './components/dancing';
 
+import en from './localization/en.json';
+import fr from './localization/fr.json';
+
 
 // APP
 function App() {
 
 	this.view = 'home';
+	this.lang = 'en';
+	this.localization = en;
 
 	this.metrics = [];
 
@@ -74,6 +79,10 @@ function App() {
 			.duration(2000)
 			.delay(2000)
 			.style('opacity', 1);
+	};
+
+	this.changeLanguage = function changeLanguage(lang) {
+		this.localization = (lang.toLowerCase() == 'fr') ? fr : en;
 	};
 
 }

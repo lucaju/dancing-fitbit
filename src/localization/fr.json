@@ -1,10 +1,12 @@
 {
-    "title": "Dancing with Fitbit",
+    "title": "Danser avec Fitbit",
     "description": "<p>Florence*, une chorégraphe et professeure de danse dans la fin cinquantaine, a suivi en continu ses activités physiques et quotidiennes avec une montre Fitbit Charge HR durant une semaine. Durant cette période, elle a noté son expérience et les réflexions qui ont émergé de celle-ci dans un journal de bord. Après la semaine de suivi en continu, elle a créé et performé une chorégraphie, inspirée de son expérience vécue. Les données récoltées par la technologie de suivi en continu ont alors été utilisées pour la création d’une trame sonore et la production d’effets visuels. Ces deux « re-travail » des données Fitbit ont été intégrés à une vidéo éditée et utilisés pour créer cette plate-forme web interactive.</p>Ce projet de recherche et de création, vise à explorer comment les données et l’expérience de suivi en continu peuvent être utilisées pour générer des formes subversives de matérialisation des données (à travers la chorégraphie, le son, les visuels). Nous avons voulu critiquer les injonctions liées aux corps vieillissants et aux normativités constitutives du « bien vieillir ». </p><p>Ce processus créatif est également devenu un nœud pour des explorations techniques et théoriques sur les corps produits à travers le dispositif Fitbit et ses activités liées (corps médiatisés, corps régulés, corps standardisés, corps vécus, etc.) de même que sur ce que constituent les « données ». Nous concevons les données comme étant culturellement médiées. Les processus de médiation qui participent de la production des données informent les manières par lesquelles elles sont produites, traitées et rendues effectives. Notre approche critique a visé à « retravailler » les corps biométriques produits par Fitbit, afin de déconstruire les narratifs et temporalités qui se retrouvent intégrés et produits dans leur production.</p><p>Plus d’information à venir quant au cadre théorique sous-tendant le projet et quant à ses dimensions créatives.</p>",
-    "startButton": "Start",
+    "startButton": "Commencer",
+    "restartButton": "Recommencer",
+    "headphones": "Préférable avec des écouteurs",
     "langButton": "En",
     "collabTitle": "Les collaborateurs et collaboratrices du projet ",
-    "sponsorTtile": "Sponsor",
+    "sponsorTtile": "Commanditaire",
     "collborators": [
         {
             "name": "Florence",
