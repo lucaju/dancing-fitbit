@@ -10,14 +10,22 @@ The creative process also became the hub for technical and theoretical explorati
 More information on the theoretical framework underlying the project and on its creative dimensions coming soon.
 
 ## Project Collaborators
+
 ### Florence
+
 Fictious “name”, on her request.
 Florence is a dance choreographer and professor. She participated in the project by tracking herself and creating and performing a choreography inspired by this lived experience. This lived experience was then used by all the collaborators to develop their own creative process.
+
 ### Myriam Durocher
+
 Myriam Durocher is a PhD candidate in Communication Studies at Université de Montréal. She has been the instigator and the coordinator of the project. She also provided the critical literature anchored in critical gerontology that underpins the whole project. Her work within this research group investigates the power relations that are negotiated through the elaboration of injunctions and normativities in relation to aging bodies and self-tracking devices.
+
 ### Julia Salles
+
 Julia Salles is a PhD candidate in Communication Studies at Université du Québec à Montréal and a Lecturer at Université de Montréal. She created the edited video of the dance performance, integrating the visuals and sounds produced by Luciano and Samuel. She also worked on developing this web interactive platform, as a way to present the materials in an interactive and non-linear form.
+
 ### Samuel Thulin
 Samuel Thulin is a researcher and artist working at the intersection of mobilities research, communication and media studies, sound studies, and critical disability studies. He is currently a Horizon Postdoctoral Fellow in the Department of Communication Studies at Concordia University working in the Milieux Institute for Arts, Culture and Technology’s Participatory Media cluster. He produced the soundtrack with the data retrieved from Fitbit. He aimed to create an atmospheric soundscape, reflecting the tensions and ambivalence felt by Florence during her week of self-tracking.
 ### Luciano Frizzera
+
 Luciano Frizzera is a PhD candidate in Communication Studies at Concordia University. He retrieved the Fitbit data generated through Florence’s week of self-tracking – not only those accessible to the Fitbit user, but more extensively, those produced, collected and archived by Fitbit. He also worked on creating the visualizations, producing data-driven graphs, that aim to get rid of any linearity or consistency afforded by Fitbit to its user.
