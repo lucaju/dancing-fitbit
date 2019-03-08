@@ -11,7 +11,8 @@ module.exports = {
 	entry: './src/app.js',
 	output: {
 		filename: 'app.bundle.js',
-		path: path.resolve(__dirname, 'dist'),
+		// path: path.resolve(__dirname, 'dist'),
+		path: path.resolve(process.cwd(), 'dist'),
 	},
 	devServer: {
 		contentBase: './dist',
@@ -39,9 +40,11 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new CleanWebpackPlugin([
-			'./dist',
-		]),
+		new CleanWebpackPlugin(
+		// 	[
+		// 	'./dist',
+		// ]
+		),
 		new HtmlWebpackPlugin({
 			inject: false,
 			template: require('html-webpack-template'),
