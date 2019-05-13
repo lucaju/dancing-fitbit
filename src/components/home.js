@@ -1,5 +1,5 @@
 import {select} from 'd3/dist/d3.min';
-import homeMustache from './home.html';
+import homeHBS from './home.hbs';
 
 export default function Home(_app) {
 
@@ -34,7 +34,7 @@ export default function Home(_app) {
 
 		//update info
 		updatePageData();
-		const html = homeMustache(pageData);
+		const html = homeHBS(pageData);
 		select('#home').html(html);
 
 		//set interaction

@@ -1,0 +1,72 @@
+<div id="intro"
+    class="uk-section uk-section-seconday uk-height-viewport uk-background-cover uk-background-fixed"
+    data-src="images/bg.jpg" uk-img>
+    <div class="uk-container uk-container-xsmall uk-margin-large-top">
+
+        <div class="uk-margin-top uk-text-center">
+            <h1 class="title uk-margin-xlarge-bottom">{{title}}</h1>
+            <button id="play-button"
+                    class="uk-button uk-button-secondary uk-button-large uk-align-center play-button uk-margin-large-top uk-border-pill">{{startButton}}</button>
+
+            <div class="uk-grid uk-margin-large-top">
+                <div class="uk-width-expand"></div>
+                <div class="uk-width-auto">
+                    <p class="headphones uk-text-left">
+                        <img class="uk-align-left uk-padding-remove uk-margin-small-right"
+                            data-src="images/headphones.png"
+                            alt="Headphones" uk-img>{{headphones}}</p>
+                </div>
+                <div class="uk-width-expand"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-container uk-container-xsmall uk-margin-large-medium">
+        <div class="uk-grid uk-margin-bottom uk-margin-large-top">
+            <div class="uk-width-1-6">
+                <button id="lang-button"
+                        class="uk-button uk-button-secondary uk-align-right lang-button">{{langButton}}</button>
+            </div>
+            <div class="uk-width-5-6">
+                {{{description}}}
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-container uk-container-xsmall uk-margin-large-top">
+
+
+        <h2 class="subtitle uk-text-center uk-margin-large-top">{{collabTitle}}</h2>
+        <div class="uk-grid">
+            <div class="uk-width-1-6"></div>
+            <div class="uk-width-5-6">
+                {{#collborators}}
+                <div class="uk-margin-bottom">
+                    <h3 class="team-name uk-margin-remove-bottom">{{name}}</h3>
+                    <div>{{{bio}}}</div>
+                </div>
+                {{/collborators}}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="uk-container uk-container-xsmall uk-margin-large-top">
+        <div>
+            <a href="https://github.com/lucaju/dancing-fitbit" target="_blank">
+                <img class="uk-align-center"
+                    width="45"
+                    data-src="images/github.png"
+                    alt="CC" uk-img>
+            </a>
+        </div>
+        <div class="uk-width-auto">
+            <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">
+                <img class="uk-align-center"
+                    width="100"
+                    data-src="images/cc-by-nc.png"
+                    alt="CC" uk-img>
+            </a>
+        </div>
+    </div>
+</div>

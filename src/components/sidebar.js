@@ -1,5 +1,6 @@
-import sidebarMustache from './sidebar.html';
 import {select,selectAll} from 'd3';
+
+import sidebarHBS from './sidebar.hbs';
 
 
 export default function Sidebar(dancing) {
@@ -60,7 +61,7 @@ export default function Sidebar(dancing) {
 		};
 
 		// buid page
-		const html = sidebarMustache(this.pageData);
+		const html = sidebarHBS(this.pageData);
 		select('#dancing').append('div').attr('id', 'sidebar-left');
 		select('#sidebar-left').html(html);
 

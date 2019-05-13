@@ -49,7 +49,7 @@ export default function Vis(dancing) {
 		});
 
 		const scene = document.getElementById('svg-inner');
-		const parallaxInstance = new Parallax(scene);
+		new Parallax(scene);
 
 	};
 

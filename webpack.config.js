@@ -50,10 +50,6 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.html$/,
-				use: 'mustache-loader',
-			},
-			{
 				test: /\.hbs$/,
 				loader: 'handlebars-loader',
 				options: {

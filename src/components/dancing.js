@@ -5,7 +5,7 @@ import YTPlayer from 'yt-player';
 import Sidebar from './sidebar';
 import Vis from './vis';
 
-import dancingMustache from './dancing.html';
+import dancingHBS from './dancing.hbs';
 
 export default function dancing(app) {
 
@@ -25,7 +25,7 @@ export default function dancing(app) {
 		};
 
 		select('#app').append('div').attr('id', 'dancing');
-		const html = dancingMustache(this.pageData);
+		const html = dancingHBS(this.pageData);
 		select('#dancing').html(html);
 
 		this.sidebar = new Sidebar(this);
