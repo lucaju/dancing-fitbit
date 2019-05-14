@@ -18,7 +18,7 @@ module.exports = {
 	devServer: {
 		contentBase: './dist',
 	},
-	devtool: 'inline-source-map', //inline-source-map || 'source-map' || ''
+	devtool: '/inline-source-map', //inline-source-map || 'source-map' || ''
 	module: {
 		rules: [
 			{

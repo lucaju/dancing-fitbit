@@ -1,10 +1,8 @@
 import {scaleLinear} from 'd3';
 
-const square = function square(x) {
-	return x * x;
-};
+const square = x => x * x;
 
-export function scaleRadial() {
+const scaleRadial = () => {
 
 	let linear = scaleLinear();
 
@@ -30,4 +28,6 @@ export function scaleRadial() {
 	scale.tickFormat = linear.tickFormat;
 
 	return scale;
-}
+};
+
+export default scaleRadial;

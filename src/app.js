@@ -9,84 +9,77 @@ import {select} from 'd3/dist/d3.min';
 import 'uikit/dist/css/uikit.min.css';
 import './style.css';
 
-import DataModel from './dataModel';
-import Home from './components/home';
-import Dancing from './components/dancing';
+import home from './components/home';
+// import dancing from './components/dancing';
 
 import en from './localization/en.json';
 import fr from './localization/fr.json';
 
 
-// APP
-function App() {
+let view = 'home';
+let localization = en;
+let dancing;
 
-	this.view = 'home';
-	this.lang = 'en';
-	this.localization = en;
+const changeView = async newView => {
 
-	this.metrics = [];
+	hideView(view);
 
-	this.init = function init() {
+	view = newView;
 
-		// components
-		this.dataModel = new DataModel(this);
-		
-		this.home = new Home(this);
-		this.home.init();
+	if (view == 'home') {
+		home.render(localization);
+		addHomeListener();
 
-	};
-	
-	this.getMetricByDay = function getMetricByDay(day) {
-		const metric = this.dataModel.metrics.find(m => m.day == day);
-		return metric;
-	};
+	} else if (view == 'dancing') {
+		if (!dancing) dancing = await import(/* webpackChunkName: "dancing" */ './components/dancing');
+		dancing.render(localization);
+		addDancingListener();
+	}
 
-	this.changeView = function changeView(view) {
+	showView(view);
+};
 
-		this.hideView();
+const hideView = (viewName) => {
+	let viewHTML = select(`#${viewName}`);
+	viewHTML.transition()
+		.duration(2000)
+		.style('opacity', 0)
+		.on('end', () => {
+			viewHTML.remove();
+		});
+};
 
-		this.view = view;
+const showView = (viewName) => {
+	let viewHTML = select(`#${viewName}`);
+	viewHTML.style('opacity', 0);
+	viewHTML.transition()
+		.duration(2000)
+		.delay(2000)
+		.style('opacity', 1);
+};
 
-		if (this.view == 'home') {
-			if(!this.home) this.home = new Home(this);
-			this.home.init();
-		}
+const changeLanguage = lang => {
+	localization = (lang.toLowerCase() == 'fr') ? fr : en;
+};
 
-		if (this.view == 'dancing') {
-			if(!this.dancing) this.dancing = new Dancing(this);
-			this.dancing.init();
-		}
+const addHomeListener = () => {
+	home.event.on('changelanguage', lang => {
+		changeLanguage(lang);
+		home.render(localization);
+	});
 
-		this.showView();
-	};
+	home.event.on('changeview', view => {
+		changeView(view);
+	});
+};
 
-	this.hideView = function hide() {
-		let viewName = this.view;
-		let view = select(`#${this.view}`);
-		view.transition()
-			.duration(2000)
-			.style('opacity', 0)
-			.on('end', function() {
-				delete app[viewName];
-				view.remove();
-			});
-	};
+const addDancingListener = () => {
+	dancing.event.on('changeview', view => {
+		changeView(view);
+	});
+};
 
-	this.showView = function hide() {
-		let view = select(`#${this.view}`);
-		view.style('opacity', 0);
-		view.transition()
-			.duration(2000)
-			.delay(2000)
-			.style('opacity', 1);
-	};
-
-	this.changeLanguage = function changeLanguage(lang) {
-		this.localization = (lang.toLowerCase() == 'fr') ? fr : en;
-	};
-
-}
-
-const app = new App();
-window.app = app;
-app.init();
+(function init() {
+	const homeEvent = home.render(localization);
+	addHomeListener(homeEvent);
+}());

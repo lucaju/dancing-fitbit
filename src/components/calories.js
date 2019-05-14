@@ -1,95 +1,86 @@
-import {scaleTime,extent,easeLinear,lineRadial,curveStep} from 'd3/dist/d3.min';
+import {curveStep,dispatch,easeLinear,extent,lineRadial,scaleTime} from 'd3/dist/d3.min';
 import chroma from 'chroma-js/chroma.min';
-import {scaleRadial} from './scaleRadial';
+import scaleRadial from './scaleRadial';
 
-export default function calories(vis) {
 
-	this.vis = vis;
-	this.app = vis.app;
+const event = dispatch('end');
 
-	this.svgContainer;
-	
-	const fullCircle = 2 * Math.PI;
-	
-	const innerRadius = 125;
-	const outerRadius = 200;
+const fullCircle = 2 * Math.PI;
 
-	this.setup = function setup() {
-		this.svgContainer = this.vis.svg.append('g')
-			.attr('id', 'calories')
-			.attr('data-depth', '0.4');
-	};
-	
-	this.addDay = function addDay(day) {
+const innerRadius = 125;
+const outerRadius = 200;
 
-		const _this = this;
+let svgContainer;
+let lastAngle = 0;
 
-		//data
-		let data = this.app.getMetricByDay(day).calories;
+const setup = svg => {
+	svgContainer = svg.append('g')
+		.attr('id', 'calories')
+		.attr('data-depth', '0.4');
+};
 
-		//X Scale
-		let x = scaleTime()
-			.range([0, fullCircle])
-			.domain(extent(data, function (d) {
-				return d.time;
-			}));
+const addDay = (day, data, animationParams) => {
 
-		//Y Scale
-		let y = scaleRadial()
-			.range([innerRadius, outerRadius])
-			.domain(extent(data, function (d) {
-				return d.value;
-			}));
+	//X Scale
+	let x = scaleTime()
+		.range([0, fullCircle])
+		.domain(extent(data, d => d.time));
 
-		// Inner Container
-		let innerSvgContainer = this.svgContainer.append('g')
-			.attr('id', `day${day}`)
-			.attr('day', day);
+	//Y Scale
+	let y = scaleRadial()
+		.range([innerRadius, outerRadius])
+		.domain(extent(data, d => d.value));
 
-		//Line graph
-		let line = lineRadial()
-			.angle(function (d) {
-				return x(d.time);
-			})
-			.radius(function (d) {
-				return y(d.value);
-			})
-			.curve(curveStep); //Slight rounding without too much deviation
+	// Inner Container
+	let innerSvgContainer = svgContainer.append('g')
+		.attr('id', `day${day}`)
+		.attr('day', day);
 
-		//graph
-		let segments = innerSvgContainer.append('path')
-			.datum(data)
-			.attr('fill', 'none')
-			.attr('stroke', chroma('#ed2079').hex())
-			.attr('d', line);
+	//Line graph
+	let line = lineRadial()
+		.angle( d => x(d.time))
+		.radius( d =>  y(d.value))
+		.curve(curveStep); //Slight rounding without too much deviation
 
-		// inner container rotation
-		let angle = this.vis.getAnimationParametersByDay(day).angle;
+	//graph
+	let segments = innerSvgContainer.append('path')
+		.datum(data)
+		.attr('fill', 'none')
+		.attr('stroke', chroma('#ed2079').hex())
+		.attr('d', line);
 
-		if (day > 10) {
-			innerSvgContainer.attr('transform', `rotate(${this.vis.getAnimationParametersByDay(day-1).angle})`);
-			angle = this.vis.getAnimationParametersByDay(day - 1).angle + this.vis.getAnimationParametersByDay(day).angle;
-		}
+	// inner container rotation
+	let angle = animationParams.angle;
+	lastAngle += angle;
 
-		innerSvgContainer.transition()
-			.duration(this.vis.getAnimationParametersByDay(day).angleDuration)
-			.delay(1500)
-			.attr('transform', `rotate(${angle})`)
-			.on('end', function () {
-				_this.vis.fadeOut(this);
-				_this.vis.changeDay(day+1);
-			});
+	if (day > 10) {
+		innerSvgContainer.attr('transform', `rotate(${lastAngle})`);
+		angle = lastAngle + animationParams.angle;
+	}
 
-		// graph anomation
-		let lineLength = segments.node().getTotalLength();
+	innerSvgContainer.transition()
+		.duration(animationParams.angleDuration)
+		.delay(1500)
+		.attr('transform', `rotate(${angle})`)
+		.on('end', function () {
+			event.call('end',this,this);
+		});
 
-		segments.attr('stroke-dasharray', lineLength + ' ' + lineLength)
-			.attr('stroke-dashoffset', +lineLength)
-			.transition()
-			.duration(this.vis.getAnimationParametersByDay(day).duration)
-			.ease(easeLinear)
-			.attr('stroke-dashoffset', 0);
+	// graph anomation
+	let lineLength = segments.node().getTotalLength();
 
-	};
+	segments.attr('stroke-dasharray', lineLength + ' ' + lineLength)
+		.attr('stroke-dashoffset', +lineLength)
+		.transition()
+		.duration(animationParams.duration)
+		.ease(easeLinear)
+		.attr('stroke-dashoffset', 0);
 
-}
+};
+
+
+export default {
+	setup,
+	addDay,
+	event
+};

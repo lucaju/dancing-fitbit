@@ -1,53 +1,49 @@
-import {select} from 'd3/dist/d3.min';
+import {dispatch, select} from 'd3/dist/d3.min';
 import homeHBS from './home.hbs';
 
-export default function Home(_app) {
+const event = dispatch('changelanguage', 'changeview');
 
-	//parameters
-	const app = _app;
-	let pageData = {};
-
-
-	//initialize
-	this.init = function init() {
-		//add div and update
-		select('#app').append('div').attr('id', 'home');
-		update();
+//update info
+const updatePageData = data => {
+	return {
+		title: data.title,
+		description: data.description,
+		startButton: data.startButton,
+		headphones: data.headphones,
+		langButton: data.langButton,
+		collabTitle: data.collabTitle,
+		sponsorTtile: data.sponsorTtile,
+		collborators: data.collborators,
 	};
+};
+
+//update interface
+const render = (data) => {
 
 	//update info
-	const updatePageData = function updatePageData() {
-		pageData = {
-			title: app.localization.title,
-			description: app.localization.description,
-			startButton: app.localization.startButton,
-			headphones: app.localization.headphones,
-			langButton: app.localization.langButton,
-			collabTitle: app.localization.collabTitle,
-			sponsorTtile: app.localization.sponsorTtile,
-			collborators: app.localization.collborators,
-		};
-	};
+	const pageData = updatePageData(data);
+	const html = homeHBS(pageData);
 
-	//update interface
-	const update = function update() {
+	if (select('#home').empty()) {
+		select('#app').append('div').attr('id', 'home');
+	}
 
-		//update info
-		updatePageData();
-		const html = homeHBS(pageData);
-		select('#home').html(html);
+	select('#home').html(html);
+	window.scrollTo(0, 1);
 
-		//set interaction
-		select('#lang-button').on('click', function() {
-			const lang = select(this).html();
-			app.changeLanguage(lang);
-			update();
-			window.scrollTo(0, 1);
-		});
+	//set interaction
+	select('#lang-button').on('click', function () {
+		const lang = select(this).html();
+		event.call('changelanguage', this, lang);
+	});
 
-		select('#play-button').on('click', function() {
-			app.changeView('dancing');
-		});
-	};
-}
+	select('#play-button').on('click', function () {
+		event.call('changeview', this, 'dancing');
+	});
+};
 
+
+export default {
+	render,
+	event
+};
