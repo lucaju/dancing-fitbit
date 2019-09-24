@@ -1,11 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackBar = require('webpackbar');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 module.exports = {
 	mode: 'development', //development || production
@@ -62,11 +64,7 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new CleanWebpackPlugin(
-		// 	[
-		// 	'./dist',
-		// ]
-		),
+		// new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			inject: false,
 			template: require('html-webpack-template'),
