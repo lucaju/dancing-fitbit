@@ -21,7 +21,7 @@
   "main": "App.js",
   "scripts": {
     "start": "webpack-dev-server --open",
-    "production": "webpack --config webpack.config.prod.js --progress",
+    "production": "webpack --config webpack.config.prod.js -p --progress",
     "watch": "webpack --watch"
   },
   "dependencies": {
