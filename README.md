@@ -1,6 +1,6 @@
 # Dancing with Fitbit
 
-Try it here: http://labs.fluxo.art.br/dancing-with-fitbit/
+Try it here: https://dancing-with-fitbit.lucianofrizzera.com
 
 Florence*, a choreographer and dance professor in her late fifties, has tracked herself with a Fitbit Charge HR watch at all times for one week. Throughout this period, she took notes on her experience and the thoughts that emerged from it in a journal. After the week of tracking, she created and performed a choreography inspired by this lived experience. The data collected by the self-tracking device were then used in the creation of a soundtrack, and the production of visual effects. These two “re-workings” of the Fitbit data were integrated in an edited video, and used to create this web-based interactive platform.
 
